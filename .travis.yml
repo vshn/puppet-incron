@@ -1,0 +1,11 @@
+---
+language: ruby
+install:
+- bundle install --path .bundle/gems
+- bundle exec librarian-puppet install --path .dependencies
+script: bundle exec rake validate spec
+rvm: 2.4.0
+sudo: false
+env:
+- PUPPET=4.4.1
+- PUPPET=4.9.1

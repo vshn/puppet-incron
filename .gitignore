@@ -1,0 +1,22 @@
+# JetBrains products
+.idea/
+.dependencies/
+*.iml
+
+# Ruby
+.bundle/gems/
+Gemfile.lock
+
+# librarian-puppet
+.tmp/
+Puppetfile.lock
+
+# Testing
+.vagrant/
+log/
+junit/
+spec/fixtures/
+
+# puppet-strings
+.yardoc/
+doc/

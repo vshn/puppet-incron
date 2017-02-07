@@ -1,0 +1,30 @@
+{
+  "name": "pegas-incron",
+  "version": "0.1.0",
+  "author": "PegaS",
+  "summary": "Manage incron jobs and be tidy",
+  "license": "Apache-2.0",
+  "source": "https://github.com/pegasd/puppet-incron",
+  "project_page": "https://github.com/pegasd/puppet-incron",
+  "issues_url": "https://github.com/pegasd/puppet-incron/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04", "16.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.0.0 < 5.0.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.0.0 < 5.0.0"
+    }
+  ]
+}
