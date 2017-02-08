@@ -11,4 +11,12 @@
 #   require incron
 class incron {
 
+  contain incron::install
+  contain incron::config
+  contain incron::service
+
+  Class['::incron::install'] ->
+  Class['::incron::config'] ~>
+  Class['::incron::service']
+
 }
