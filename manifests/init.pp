@@ -9,7 +9,10 @@
 #
 # @example Declaring incron
 #   require incron
-class incron {
+class incron (
+  Enum[present, absent]   $ensure   = present,
+  Pattern[/^06[046]{2}$/] $dir_mode = '0644',
+) {
 
   contain incron::install
   contain incron::config
