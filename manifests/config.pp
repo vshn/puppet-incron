@@ -3,7 +3,7 @@
 class incron::config {
 
   file { [ '/etc/incron.allow', '/etc/incron.deny' ]:
-    ensure  => $::incron::ensure,
+    ensure  => present,
     content => '',
     owner   => 'root',
     group   => 'root',
@@ -11,21 +11,15 @@ class incron::config {
   }
 
   file { '/etc/incron.conf':
-    ensure  => $::incron::ensure,
+    ensure  => present,
     content => '',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
   }
 
-  if $::incron::ensure == present {
-    $dir_ensure = directory
-  } else {
-    $dir_ensure = $::incron::ensure
-  }
-
   file { '/etc/incron.d':
-    ensure  => $dir_ensure,
+    ensure  => directory,
     recurse => true,
     purge   => true,
     force   => true,

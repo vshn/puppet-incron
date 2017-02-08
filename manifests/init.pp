@@ -9,17 +9,28 @@
 #
 # @example Declaring incron
 #   require incron
+#
+# @param ensure Whether to enable or disable incron on the system.
+# @param dir_mode Permissions for /etc/incron.d directory
 class incron (
   Enum[present, absent]   $ensure   = present,
-  Pattern[/^06[046]{2}$/] $dir_mode = '0644',
+  Pattern[/^07[057]{2}$/] $dir_mode = '0755',
 ) {
 
-  contain incron::install
-  contain incron::config
-  contain incron::service
+  if $ensure == present {
 
-  Class['::incron::install'] ->
-  Class['::incron::config'] ~>
-  Class['::incron::service']
+    contain incron::install
+    contain incron::config
+    contain incron::service
+
+    Class['::incron::install'] ->
+    Class['::incron::config'] ~>
+    Class['::incron::service']
+
+  } else {
+
+    contain incron::remove
+
+  }
 
 }

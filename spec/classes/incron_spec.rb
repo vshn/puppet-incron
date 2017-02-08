@@ -17,45 +17,52 @@ describe 'incron' do
     end
 
     describe 'incron::config' do
-      context 'with default parameters' do
-        it { is_expected.to contain_file('/etc/incron.conf').with({
-          :ensure  => :present,
-          :content => /^$/,
-          :owner   => 'root',
-          :group   => 'root',
-          :mode    => '0644',
-        }) }
-        it { is_expected.to contain_file('/etc/incron.allow').with({
-          :ensure  => :present,
-          :content => /^$/,
-          :owner   => 'root',
-          :group   => 'root',
-          :mode    => '0640',
-        }) }
-        it { is_expected.to contain_file('/etc/incron.deny').with({
-          :ensure  => :present,
-          :content => /^$/,
-          :owner   => 'root',
-          :group   => 'root',
-          :mode    => '0640',
-        }) }
-        it { is_expected.to contain_file('/etc/incron.d').with({
-          :ensure  => :directory,
-          :recurse => true,
-          :purge   => true,
-          :force   => true,
-          :owner   => 'root',
-          :group   => 'root',
-          :mode    => '0644',
-        }) }
-      end
+      it { is_expected.to contain_file('/etc/incron.conf').with({
+        :ensure  => :present,
+        :content => /^$/,
+        :owner   => 'root',
+        :group   => 'root',
+        :mode    => '0644',
+      }) }
+      it { is_expected.to contain_file('/etc/incron.allow').with({
+        :ensure  => :present,
+        :content => /^$/,
+        :owner   => 'root',
+        :group   => 'root',
+        :mode    => '0640',
+      }) }
+      it { is_expected.to contain_file('/etc/incron.deny').with({
+        :ensure  => :present,
+        :content => /^$/,
+        :owner   => 'root',
+        :group   => 'root',
+        :mode    => '0640',
+      }) }
+      it { is_expected.to contain_file('/etc/incron.d').with({
+        :ensure  => :directory,
+        :recurse => true,
+        :purge   => true,
+        :force   => true,
+        :owner   => 'root',
+        :group   => 'root',
+        :mode    => '0755',
+      }) }
+    end
+
+    describe 'incron::service' do
+      it { is_expected.to contain_service('incron').with({
+        :ensure     => :running,
+        :enable     => true,
+        :hasrestart => true,
+        :hasstatus  => false,
+      }) }
 
     end
 
   end
 
   context 'with custom dir_mode' do
-    let(:params) { { :dir_mode => '0600' } }
+    let(:params) { { :dir_mode => '0700' } }
 
     describe 'incron::config' do
       it { is_expected.to contain_file('/etc/incron.d').with({
@@ -65,13 +72,19 @@ describe 'incron' do
         :force   => true,
         :owner   => 'root',
         :group   => 'root',
-        :mode    => '0600',
+        :mode    => '0700',
       }) }
     end
   end
 
   context 'with ensure => absent' do
     let(:params) { { :ensure => 'absent' } }
+
+    it { is_expected.to contain_class('incron::remove') }
+
+    it { is_expected.not_to contain_class('incron::install') }
+    it { is_expected.not_to contain_class('incron::config') }
+    it { is_expected.not_to contain_class('incron::service') }
 
     it { is_expected.to contain_package('incron').with_ensure(:absent) }
     it { is_expected.to contain_file('/etc/incron.d').with({
