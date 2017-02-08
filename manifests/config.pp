@@ -1,5 +1,6 @@
 # @api private
-# This class handles incron configuration files. Avoid modifying private classes.
+# This class handles incron configuration files.
+# Avoid modifying and using private classes directly.
 class incron::config {
 
   file { [ '/etc/incron.allow', '/etc/incron.deny' ]:
