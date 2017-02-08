@@ -1,0 +1,8 @@
+<%- |
+  String $job_name,
+  String $command,
+  String $event,
+  String $path,
+| -%>
+# <%= $job_name %> incron job
+<%= $path %> <%= $event %> <%= $command %>

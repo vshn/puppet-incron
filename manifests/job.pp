@@ -23,4 +23,20 @@ define incron::job (
   Stdlib::Unixpath                      $path,
   Pattern[/^[0-7]{4}$/]                 $mode = '0644',
 ) {
+
+  require ::incron
+
+  file { "/etc/incron.d/${name}":
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => $mode,
+    content => epp("${module_name}/job.epp", {
+      job_name => $name,
+      command  => $command,
+      event    => $event,
+      path     => $path,
+    })
+  }
+
 }
