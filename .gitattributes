@@ -1,1 +1,2 @@
 *.pp linguist-language=Puppet
+*.epp linguist-language=Puppet
