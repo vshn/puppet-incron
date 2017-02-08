@@ -18,10 +18,10 @@
 # @param path Path to watched directory
 # @param mode Incron job file permissions, which is located at /etc/incron.d/JOB_NAME
 define incron::job (
-  String                                $command,
-  Enum['IN_CLOSE_WRITE', 'IN_MOVED_TO'] $event,
-  Stdlib::Unixpath                      $path,
-  Pattern[/^[0-7]{4}$/]                 $mode = '0644',
+  String                $command,
+  Incron::Event         $event,
+  Stdlib::Unixpath      $path,
+  Pattern[/^[0-7]{4}$/] $mode = '0644',
 ) {
 
   require ::incron
