@@ -1,12 +1,10 @@
-# incron::job class
+# incron::job resource
 #
 # Primary incron resource used to create incron jobs.
 #
 # @author Eugene Piven <epiven@gmail.com>
 #
-# @see https://github.com/pegasd/puppet-incron
-#
-# @example Using incron resource
+# @example Using incron::job resource
 #   incron::job { 'process_file':
 #     path    => '/upload',
 #     event   => 'IN_CLOSE_WRITE',
