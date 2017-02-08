@@ -13,10 +13,12 @@ describe 'incron' do
     it { is_expected.to contain_class('incron::service') }
 
     describe 'incron::install' do
+      it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_package('incron').with_ensure(:present) }
     end
 
     describe 'incron::config' do
+      it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_file('/etc/incron.conf').with({
         :ensure  => :present,
         :content => /^$/,
@@ -50,6 +52,7 @@ describe 'incron' do
     end
 
     describe 'incron::service' do
+      it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_service('incron').with({
         :ensure     => :running,
         :enable     => true,
@@ -65,6 +68,7 @@ describe 'incron' do
     let(:params) { { :dir_mode => '0700' } }
 
     describe 'incron::config' do
+      it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_file('/etc/incron.d').with({
         :ensure  => :directory,
         :recurse => true,
@@ -79,6 +83,8 @@ describe 'incron' do
 
   context 'with ensure => absent' do
     let(:params) { { :ensure => 'absent' } }
+
+    it { is_expected.to compile.with_all_deps }
 
     it { is_expected.to contain_class('incron::remove') }
 
