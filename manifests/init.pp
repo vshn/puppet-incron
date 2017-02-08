@@ -5,7 +5,7 @@
 #
 # @author Eugene Piven <epiven@gmail.com>
 #
-# @see https://github.com/pegasd/puppet-cron
+# @see https://github.com/pegasd/puppet-incron
 #
 # @example Declaring incron
 #   require incron
