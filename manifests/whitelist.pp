@@ -8,6 +8,8 @@
 #   incron::whitelist { 'uploader': }
 define incron::whitelist {
 
+  require ::incron
+
   file { "/etc/incron.d/${name}":
     ensure  => file,
     replace => false,
