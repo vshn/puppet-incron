@@ -1,5 +1,5 @@
 # @api private
-# This class handles removing all incron-related resources.
+# This class handles removal of all incron-related resources.
 # Avoid modifying and using private classes directly.
 class incron::remove {
 
