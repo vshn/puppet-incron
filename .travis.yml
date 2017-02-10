@@ -7,6 +7,5 @@ script: bundle exec rake validate spec
 rvm: 2.3.1
 sudo: false
 env:
-- PUPPET=4.4.0
 - PUPPET=4.4.1
 - PUPPET=4.9.1
