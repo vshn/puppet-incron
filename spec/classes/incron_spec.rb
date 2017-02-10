@@ -37,21 +37,21 @@ describe 'incron' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_file('/etc/incron.conf').with(
             ensure:  :present,
-            content: /^$/,
+            content: '',
             owner:   'root',
             group:   'root',
             mode:    '0644',
           ) }
           it { is_expected.to contain_file('/etc/incron.allow').with(
             ensure:  :present,
-            content: /^$/,
+            content: '',
             owner:   'root',
             group:   'root',
             mode:    '0640',
           ) }
           it { is_expected.to contain_file('/etc/incron.deny').with(
             ensure:  :present,
-            content: /^$/,
+            content: '',
             owner:   'root',
             group:   'root',
             mode:    '0640',
