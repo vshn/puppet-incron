@@ -10,17 +10,7 @@ describe 'incron' do
       end
 
       context 'with default parameters' do
-        # problem #1: rspec-puppet (or is it puppetlabs_spec_helper?) thinks that on ubuntu-14.04-x86_64 default package provider is 'pip'
-        # problem #2: pip requires 'xmlrpc/client' which isn't there (dependency problem?)
-        # problem #3: we use puppet 4.4.1 and hence have to test against it
-        # solution: UGLEEEE
-        if Puppet.version.eql? '4.4.1' and os.eql? 'ubuntu-14.04-x86_64'
-           it { expect { catalogue }.to raise_error(
-             /cannot load such file -- xmlrpc\/client/
-           ) }
-        else
-          it { is_expected.to compile.with_all_deps }
-        end
+        it { is_expected.to compile.with_all_deps }
 
         it { is_expected.to contain_class('incron') }
 
