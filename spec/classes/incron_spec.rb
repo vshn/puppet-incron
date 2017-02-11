@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'incron' do
-  let(:facts) { { :is_virtual => 'false' } }
+  let(:facts) { { is_virtual: 'false' } }
 
-  on_supported_os.select { |_, f| f[:os]['family'] != 'Solaris' }.each do |os, f|
+  on_supported_os.each do |os, f|
     context "on #{os}" do
       let(:facts) do
         f.merge(super())
@@ -71,7 +71,7 @@ describe 'incron' do
       end
 
       context 'with custom dir_mode' do
-        let(:params) { { :dir_mode => '0700' } }
+        let(:params) { { dir_mode: '0700' } }
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_file('/etc/incron.d').with(
@@ -86,7 +86,7 @@ describe 'incron' do
       end
 
       context 'with ensure => absent' do
-        let(:params) { { :ensure => 'absent' } }
+        let(:params) { { ensure: 'absent' } }
 
         it { is_expected.to compile.with_all_deps }
 
