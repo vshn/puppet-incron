@@ -23,9 +23,9 @@ class incron (
     contain incron::config
     contain incron::service
 
-    Class['::incron::install'] ->
-    Class['::incron::config'] ~>
-    Class['::incron::service']
+    Class['::incron::install']
+    -> Class['::incron::config']
+    ~> Class['::incron::service']
 
   } else {
 
