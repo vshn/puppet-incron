@@ -1,4 +1,5 @@
 fixtures:
   symlinks:
     incron: "#{source_dir}"
-    stdlib: "#{source_dir}/.dependencies/stdlib"
+  repositories:
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
