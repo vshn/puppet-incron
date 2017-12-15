@@ -1,11 +1,35 @@
 ---
+sudo: required
+services:
+- docker
+
+before_install: rm Gemfile.lock || true
+cache:
+  bundler: true
+  directories:
+  - spec/fixtures/artifacts
+  - spec/fixtures/modules
+
 language: ruby
-install:
-- bundle install --path .bundle/gems --without acceptance
-- bundle exec librarian-puppet install --path .dependencies
-script: bundle exec rake validate spec
-rvm: 2.3.1
-sudo: false
-env:
-- PUPPET=4.4.1
-- PUPPET=4.9.1
+
+script: bundle exec rake $RAKE
+
+jobs:
+  include:
+    - stage: validate
+      env:
+      - RAKE=validate_all
+      - PUPPET=4.10.9
+    - env:
+      - RAKE=validate_all
+      - PUPPET=5.3.3
+    - stage: unit
+      env:
+      - RAKE=spec
+      - PUPPET=4.10.4
+    - env:
+      - RAKE=spec
+      - PUPPET=4.10.9
+    - env:
+      - RAKE=spec
+      - PUPPET=5.3.3
