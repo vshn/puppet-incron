@@ -2,13 +2,20 @@ source 'https://rubygems.org'
 
 puppet_version = ENV.fetch('PUPPET', '~> 5')
 
+group :acceptance do
+  gem 'beaker-puppet_install_helper'
+  gem 'beaker-rspec'
+end
+
 group :documentation do
   gem 'puppet-strings'
+  gem 'rgen'
 end
 
 group :unit do
   gem 'puppet', puppet_version
   gem 'puppetlabs_spec_helper'
+  gem 'rspec-puppet-facts'
 end
 
 group :validate do
