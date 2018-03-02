@@ -37,7 +37,7 @@ jobs:
       - BEAKER_set=ubuntu_1404
     - env:
       - DO=beaker
-      - PUPPET='~> 5'
+      - PUPPET='~> 4'
       - BEAKER_set=ubuntu_1604
     - env:
       - DO=beaker
