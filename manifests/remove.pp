@@ -8,7 +8,7 @@ class incron::remove {
   }
 
   package { 'incron':
-    ensure => absent,
+    ensure => purged,
   }
 
   file { [
