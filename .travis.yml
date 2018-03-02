@@ -12,24 +12,46 @@ cache:
 
 language: ruby
 
-script: bundle exec rake $RAKE
+script: bundle exec rake $DO
 
 jobs:
   include:
     - stage: validate
       env:
-      - RAKE=validate_all
-      - PUPPET=4.10.9
+      - DO=validate_all
+      - PUPPET='~> 4'
     - env:
-      - RAKE=validate_all
-      - PUPPET=5.3.3
+      - DO=validate_all
+      - PUPPET='~> 5'
     - stage: unit
       env:
-      - RAKE=spec
-      - PUPPET=4.10.4
+      - DO=spec
+      - PUPPET='~> 4'
     - env:
-      - RAKE=spec
-      - PUPPET=4.10.9
+      - DO=spec
+      - PUPPET='~> 5'
+    - stage: acceptance
+      env:
+      - DO=beaker
+      - PUPPET='~> 4'
+      - BEAKER_set=ubuntu_1404
     - env:
-      - RAKE=spec
-      - PUPPET=5.3.3
+      - DO=beaker
+      - PUPPET='~> 5'
+      - BEAKER_set=ubuntu_1404
+    - env:
+      - DO=beaker
+      - PUPPET='~> 4'
+      - BEAKER_set=ubuntu_1604
+    - env:
+      - DO=beaker
+      - PUPPET='~> 5'
+      - BEAKER_set=ubuntu_1604
+    - env:
+      - DO=beaker
+      - PUPPET='~> 4'
+      - BEAKER_set=ubuntu_1804
+    - env:
+      - DO=beaker
+      - PUPPET='~> 5'
+      - BEAKER_set=ubuntu_1804
