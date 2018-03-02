@@ -75,6 +75,5 @@ describe 'incron' do
         it { is_expected.not_to exist }
       end
     end
-
   end
 end
