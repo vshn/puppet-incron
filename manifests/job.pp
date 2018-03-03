@@ -10,7 +10,7 @@
 # @param command Command to execute on triggered event
 # @param event inotify event (or an array of events)
 # @param path Path to watched directory
-# @param mode Incron job file permissions, which is located at /etc/incron.d/JOB_NAME
+# @param mode Incron job file permissions, which is located at `/etc/incron.d/${name}`
 define incron::job (
   String                     $command,
   Variant[Incron::Event,

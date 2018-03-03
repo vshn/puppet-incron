@@ -1,4 +1,4 @@
-# incron
+# Puppet module to manage incron jobs
 
 [![Build Status](https://travis-ci.org/pegasd/puppet-incron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-incron)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
@@ -17,8 +17,10 @@
 ## Description
 
 This module is an interface for incron jobs with the main idea to be tidy. That means that any jobs that are not managed should not
-exist. Once you switch all incron jobs to this module, simply removing the definition is sufficient without worrying about setting
-`ensure => disable` and waiting for changes to propagate.
+exist on the host.
+
+Once you `include incron`, simply removing an `incron::job` from your manifests is sufficient for it to be cleaned up on your next
+agent run. No need to `ensure => absent` anymore. Enjoy!
 
 ## Setup
 
@@ -58,7 +60,8 @@ incron::job { 'upload_file':
 * `incron::service`: This class handles incron service.
 ### Defined types
 * [`incron::job`](#incronjob): Primary incron resource used to create incron jobs.
-* [`incron::whitelist`](#incronwhitelist): Use this to whitelist any system incron jobs you don't want to touch. This will make sure that `/etc/incron.d/${title}` won't get deleted or 
+* [`incron::whitelist`](#incronwhitelist): Use this to whitelist any system incron jobs you don't want to touch.
+  This will make sure that `/etc/incron.d/${title}` won't get deleted nor modified.
 
 ### Classes
 
@@ -146,7 +149,7 @@ Path to watched directory
 
 Data type: `Pattern[/^0[46][046]{2}$/]`
 
-Incron job file permissions, which is located at /etc/incron.d/JOB_NAME
+Incron job file permissions, which is located at `/etc/incron.d/${name}`
 
 Default value: '0644'
 
@@ -154,7 +157,7 @@ Default value: '0644'
 ### incron::whitelist
 
 Use this to whitelist any system incron jobs you don't want to touch.
-This will make sure that `/etc/incron.d/${title}` won't get deleted or modified.
+This will make sure that `/etc/incron.d/${title}` won't get deleted nor modified.
 
 #### Examples
 ##### Using incron::whitelist resource

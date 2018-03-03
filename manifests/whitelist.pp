@@ -1,5 +1,6 @@
 # Use this to whitelist any system incron jobs you don't want to touch.
-# This will make sure that `/etc/incron.d/${title}` won't get deleted or modified.
+# This will make sure that `/etc/incron.d/${title}` won't get deleted
+# nor modified.
 #
 # @example Using incron::whitelist resource
 #   incron::whitelist { 'uploader': }
