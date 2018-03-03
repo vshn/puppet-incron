@@ -73,8 +73,6 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>incron::job resource</p>
-
 <p>Primary incron resource used to create incron jobs.</p>
 
   </div>
@@ -92,7 +90,7 @@
       <pre class="example code"><code>incron::job { &#39;process_file&#39;:
   path    =&gt; &#39;/upload&#39;,
   event   =&gt; &#39;IN_CLOSE_WRITE&#39;,
-  command =&gt; &#39;/usr/bin/process_file&#39;,
+  command =&gt; &#39;/usr/bin/process_file $#&#39;,
 }</code></pre>
     
   </div>
@@ -161,7 +159,8 @@
       
         &mdash;
         <div class='inline'>
-<p>Incron job file permissions, which is located at /etc/incron.d/JOB_NAME</p>
+<p>Incron job file permissions, which is located at
+<code>/etc/incron.d/${name}</code></p>
 </div>
       
     </li>
@@ -176,6 +175,8 @@
         <pre class="lines">
 
 
+14
+15
 16
 17
 18
@@ -196,12 +197,10 @@
 33
 34
 35
-36
-37
-38</pre>
+36</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/job.pp', line 16</span>
+        <pre class="code"><span class="info file"># File 'manifests/job.pp', line 14</span>
 
 define incron::job (
   String                     $command,

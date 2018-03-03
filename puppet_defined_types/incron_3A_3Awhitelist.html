@@ -73,11 +73,9 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>incron::whitelist resource</p>
-
-<p>Use it to whitelist any system incron jobs you don&#39;t want to touch.
-This will make sure that /etc/incron.d/JOB_NAME won&#39;t get deleted or
-modified.</p>
+<p>Use this to whitelist any system incron jobs you don&#39;t want to touch.
+This will make sure that <code>/etc/incron.d/${title}</code> won&#39;t get
+deleted nor modified.</p>
 
   </div>
 </div>
@@ -95,22 +93,6 @@ modified.</p>
     
   </div>
 
-<p class="tag_title">Author:</p>
-<ul class="author">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'>
-<p>Eugene Piven <a href="mailto:epiven@gmail.com">epiven@gmail.com</a></p>
-</div>
-      
-    </li>
-  
-</ul>
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -119,23 +101,23 @@ modified.</p>
         <pre class="lines">
 
 
+7
+8
+9
 10
 11
 12
 13
 14
 15
-16
-17
-18
-19</pre>
+16</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/whitelist.pp', line 10</span>
+        <pre class="code"><span class="info file"># File 'manifests/whitelist.pp', line 7</span>
 
 define incron::whitelist {
 
-  require ::incron
+  include ::incron
 
   file { &quot;/etc/incron.d/${name}&quot;:
     ensure  =&gt; file,

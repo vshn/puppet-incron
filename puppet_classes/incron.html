@@ -75,8 +75,6 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>incron class</p>
-
 <p>Main entry point for incron class which must be included in order to start
 managing all incron-related resources.</p>
 
@@ -89,10 +87,19 @@ managing all incron-related resources.</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Declaring incron</p>
+<p>Installing incron</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_incron'>incron</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Uninstalling incron and all related resources</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;incron&#39;:
+  ensure =&gt; absent,
+}</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -144,9 +151,6 @@ managing all incron-related resources.</p>
         <pre class="lines">
 
 
-11
-12
-13
 14
 15
 16
@@ -165,10 +169,13 @@ managing all incron-related resources.</p>
 29
 30
 31
-32</pre>
+32
+33
+34
+35</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 11</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 14</span>
 
 class incron (
   Enum[present, absent]   $ensure   = present,

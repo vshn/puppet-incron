@@ -58,23 +58,20 @@
       </div>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-incron">incron</h1>
+<h1 id="label-Puppet+module+to+manage+incron+jobs">Puppet module to manage incron jobs</h1>
 
 <p><a href="https://travis-ci.org/pegasd/puppet-incron"><img
-src="https://travis-ci.org/pegasd/puppet-incron.svg?branch=master"></a></p>
+src="https://travis-ci.org/pegasd/puppet-incron.svg?branch=master"></a> <a
+href="https://forge.puppetlabs.com/pegas/incron"><img
+src="https://img.shields.io/puppetforge/v/pegas/incron.svg"></a> <a
+href="https://forge.puppetlabs.com/pegas/incron"><img
+src="https://img.shields.io/puppetforge/dt/pegas/incron.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
 <p><a href="#description">Description</a></p>
 </li><li>
 <p><a href="#setup">Setup - The basics of getting started with cron</a></p>
-<ul><li>
-<p><a href="#what-cron-affects">What cron affects</a></p>
-</li><li>
-<p><a href="#setup-requirements">Setup requirements</a></p>
-</li><li>
-<p><a href="#beginning-with-cron">Beginning with cron</a></p>
-</li></ul>
 </li><li>
 <p><a href="#usage">Usage - Configuration options and additional
 functionality</a></p>
@@ -91,66 +88,185 @@ module</a></p>
 <h2 id="label-Description">Description</h2>
 
 <p>This module is an interface for incron jobs with the main idea to be tidy.
-That means that any jobs that are not managed should not exist. Once you
-switch all incron jobs to this module, simply removing the definition is
-sufficient without worrying about setting <code>ensure =&gt; disable</code>
-and waiting for changes to propagate.</p>
+That means that any jobs that are not managed should not exist on the host.</p>
+
+<p>Once you <code>include incron</code>, simply removing an
+<code>incron::job</code> from your manifests is sufficient for it to be
+cleaned up on your next agent run. No need to <code>ensure =&gt;
+absent</code> anymore. Enjoy!</p>
 
 <h2 id="label-Setup">Setup</h2>
 
 <h3 id="label-Beginning+with+incron">Beginning with incron</h3>
 
-<p>To start out with incron: <code>puppet include incron </code> This will
-install the required package, enable incron service and start managing
-<code>/etc/incron.d</code> directory.</p>
+<p>To start out with incron:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_incron'>incron</span>
+</code></pre>
+
+<p>This will install the required package, enable incron service and start
+managing <code>/etc/incron.d</code> directory.</p>
+
+<p>Warning: all unmanaged files in <code>/etc/incron.d</code> will be removed
+at this point. Be careful!</p>
 
 <h2 id="label-Usage">Usage</h2>
 
 <p>All interactions with incron jobs should be done using
 <code>incron::job</code> resource.</p>
 
+<p>It works with at least 3 parameters:</p>
+
+<pre class="code ruby"><code class="ruby">incron::job { &#39;upload_file&#39;:
+  path    =&gt; &#39;/watched_directory&#39;,
+  event   =&gt; &#39;IN_CLOSE_WRITE&#39;,
+  command =&gt; &#39;/usr/local/bin/upload_file $#&#39;,
+}</code></pre>
+
 <h2 id="label-Reference">Reference</h2>
+
+<h3 id="label-Public+Classes">Public Classes</h3>
+<ul><li>
+<p><a href="#incron">incron</a>: Main entry point for incron class which must
+be included in order to start managing all incron-related resources.</p>
+
+<h3 id="label-Private+Classes">Private Classes</h3>
+</li><li>
+<p><code>incron::config</code>: This class handles incron configuration files.</p>
+</li><li>
+<p><code>incron::install</code>: This class handles incron package.</p>
+</li><li>
+<p><code>incron::remove</code>: This class handles removal of all
+incron-related resources.</p>
+</li><li>
+<p><code>incron::service</code>: This class handles incron service.</p>
+
+<h3 id="label-Defined+types">Defined types</h3>
+</li><li>
+<p><a href="#incronjob">incron::job</a>: Primary incron resource used to
+create incron jobs.</p>
+</li><li>
+<p><a href="#incronwhitelist">incron::whitelist</a>: Use this to whitelist any
+system incron jobs you don&#39;t want to touch.  This will make sure that
+<code>/etc/incron.d/${title}</code> won&#39;t get deleted nor modified.</p>
+</li></ul>
 
 <h3 id="label-Classes">Classes</h3>
 
-<h4 id="label-Public+classes">Public classes</h4>
-<ul><li>
-<p><a href="#incron">incron</a></p>
-</li></ul>
+<h3 id="label-incron">incron</h3>
 
-<h4 id="label-Private+classes">Private classes</h4>
-<ul><li>
-<p><code>incron::install</code>: Handles the packages.</p>
-</li><li>
-<p><code>incron::config</code>: Handles the configuration files.</p>
-</li><li>
-<p><code>incron::service</code>: Handles the service.</p>
-</li><li>
-<p><code>incron::remove</code>: Handles the removal of all incron-related
-resources.</p>
-</li></ul>
+<p>Main entry point for incron class which must be included in order to start
+managing all incron-related resources.</p>
 
-<h3 id="label-Resources">Resources</h3>
-<ul><li>
-<p><a href="#incron_job">incron::job</a></p>
-</li><li>
-<p><a href="#incron_whitelist">incron::whitelist</a></p>
-</li></ul>
+<h4 id="label-Examples">Examples</h4>
 
-<h3 id="label-Parameters">Parameters</h3>
+<h5 id="label-Installing+incron">Installing incron</h5>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_incron'>incron</span>
+</code></pre>
+
+<h5 id="label-Uninstalling+incron+and+all+related+resources">Uninstalling incron and all related resources</h5>
+
+<pre class="code ruby"><code class="ruby">class { &#39;incron&#39;:
+  ensure =&gt; absent,
+}</code></pre>
+
+<h4 id="label-Parameters">Parameters</h4>
+
+<p>The following parameters are available in the <code>incron</code> class.</p>
+
+<h5 id="label-ensure"><code>ensure</code></h5>
+
+<p>Data type: <code>Enum[present, absent]</code></p>
+
+<p>Whether to enable or disable incron on the system.</p>
+
+<p>Default value: present</p>
+
+<h5 id="label-dir_mode"><code>dir_mode</code></h5>
+
+<p>Data type: <code>Pattern[/^07[057]{2}$/]</code></p>
+
+<p>Permissions for /etc/incron.d directory.</p>
+
+<p>Default value: &#39;0755&#39;</p>
+
+<h2 id="label-Defined+types">Defined types</h2>
+
+<h3 id="label-incron-3A-3Ajob">incron::job</h3>
+
+<p>Primary incron resource used to create incron jobs.</p>
+
+<h4 id="label-Examples">Examples</h4>
+
+<h5 id="label-Using+incron-3A-3Ajob+resource">Using incron::job resource</h5>
+
+<pre class="code ruby"><code class="ruby">incron::job { &#39;process_file&#39;:
+  path    =&gt; &#39;/upload&#39;,
+  event   =&gt; &#39;IN_CLOSE_WRITE&#39;,
+  command =&gt; &#39;/usr/bin/process_file $#&#39;,
+}</code></pre>
+
+<h4 id="label-Parameters">Parameters</h4>
+
+<p>The following parameters are available in the <code>incron::job</code>
+defined type.</p>
+
+<h5 id="label-command"><code>command</code></h5>
+
+<p>Data type: <code>String</code></p>
+
+<p>Command to execute on triggered event</p>
+
+<h5 id="label-event"><code>event</code></h5>
+
+<p>Data type: <code>Variant[Incron::Event,     Array[Incron::Event, 2]]</code></p>
+
+<p>inotify event (or an array of events)</p>
+
+<h5 id="label-path"><code>path</code></h5>
+
+<p>Data type: <code>Stdlib::Unixpath</code></p>
+
+<p>Path to watched directory</p>
+
+<h5 id="label-mode"><code>mode</code></h5>
+
+<p>Data type: <code>Pattern[/^0[46][046]{2}$/]</code></p>
+
+<p>Incron job file permissions, which is located at
+<code>/etc/incron.d/${name}</code></p>
+
+<p>Default value: &#39;0644&#39;</p>
+
+<h3 id="label-incron-3A-3Awhitelist">incron::whitelist</h3>
+
+<p>Use this to whitelist any system incron jobs you don&#39;t want to touch.
+This will make sure that <code>/etc/incron.d/${title}</code> won&#39;t get
+deleted nor modified.</p>
+
+<h4 id="label-Examples">Examples</h4>
+
+<h5 id="label-Using+incron-3A-3Awhitelist+resource">Using incron::whitelist resource</h5>
+
+<pre class="code ruby"><code class="ruby">incron::whitelist { &#39;uploader&#39;: }</code></pre>
 
 <h2 id="label-Limitations">Limitations</h2>
+
+<p>This module has only been used and tested on the following Ubuntu versions:</p>
 <ul><li>
-<p>although the <code>cron::job</code> type checks for Integer boundaries,
-you&#39;re on your own if you are using strings for specifying time
-intervals. Those will be put into the template as-is.</p>
+<p>14.04</p>
+</li><li>
+<p>16.04</p>
+</li><li>
+<p>18.04 (currently tested in Docker containers)</p>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>
 
 <p>I&#39;ll be happy to know you&#39;re using this for one reason or the
-other. And if you want to contribute - even better. Feel free to submit a
-pull request.</p>
+other. And if you want to contribute - even better. Feel free to submit an
+issue / PR.</p>
 </div></div>
 
       <div id="footer">
