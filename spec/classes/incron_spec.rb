@@ -88,6 +88,7 @@ describe 'incron' do
   end
 
   context 'with ensure => absent' do
+    let(:facts) { { os: { release: { full: '14.04' } } } }
     let(:params) { { ensure: 'absent' } }
 
     it { is_expected.to compile.with_all_deps }
@@ -98,15 +99,31 @@ describe 'incron' do
     it { is_expected.not_to contain_class('incron::config') }
     it { is_expected.not_to contain_class('incron::service') }
 
-    it { is_expected.to contain_package('incron').with_ensure(:purged) }
-    it {
-      is_expected.to contain_file('/etc/incron.d').with(
-        ensure: :absent,
-        force:  true,
-      )
-    }
-    it { is_expected.to contain_file('/etc/incron.conf').with_ensure(:absent) }
-    it { is_expected.to contain_file('/etc/incron.allow').with_ensure(:absent) }
-    it { is_expected.to contain_file('/etc/incron.deny').with_ensure(:absent) }
+    context 'incron::remove' do
+      it { is_expected.to contain_package('incron').with_ensure(:purged) }
+      it {
+        is_expected.to contain_file('/etc/incron.d').with(
+          ensure: :absent,
+          force:  true,
+        )
+      }
+      it { is_expected.to contain_file('/etc/incron.conf').with_ensure(:absent) }
+      it { is_expected.to contain_file('/etc/incron.allow').with_ensure(:absent) }
+      it { is_expected.to contain_file('/etc/incron.deny').with_ensure(:absent) }
+
+      # FIXME
+      # rspec-puppet-facts `on_supported_os` doesn't do 18.04 yet
+      %w[14.04 16.04 18.04].each do |os_ver|
+        context "on Ubuntu #{os_ver}" do
+          let(:facts) { { os: { release: { full: os_ver } } } }
+
+          if os_ver == '14.04'
+            it { is_expected.not_to contain_service('incron') }
+          else
+            it { is_expected.to contain_service('incron').with_ensure(:stopped).with_provider(:systemd) }
+          end
+        end
+      end
+    end
   end
 end

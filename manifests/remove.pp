@@ -3,6 +3,13 @@
 # Avoid modifying and using private classes directly.
 class incron::remove {
 
+  if versioncmp($facts['os']['release']['full'], '15.04') >= 0 {
+    service { 'incron':
+      ensure   => stopped,
+      provider => systemd,
+    }
+  }
+
   package { 'incron':
     ensure => purged,
   }
