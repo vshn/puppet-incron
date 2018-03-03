@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Purge package @ `incron::remove`.
+- Manage service on systemd-based systems (Ubuntu 16.04, 18.04) @ `incron::remove`.
 
 ## [0.1.0]
 ### Added
