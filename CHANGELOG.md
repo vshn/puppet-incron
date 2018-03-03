@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - This CHANGELOG.
 
 ### Changed
-- Stop service before removing package in `incron::remove`.
+- Purge package @ `incron::remove`.
 
-## [0.0.0]
+## [0.1.0]
 ### Added
 - Initial release.

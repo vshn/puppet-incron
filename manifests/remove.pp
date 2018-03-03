@@ -3,10 +3,6 @@
 # Avoid modifying and using private classes directly.
 class incron::remove {
 
-  service { 'incron':
-    ensure => stopped,
-  }
-
   package { 'incron':
     ensure => purged,
   }
