@@ -1,8 +1,6 @@
 <%- |
-  String $job_name,
   String $command,
-  String $event,
+  Variant[String, Array[String, 2]] $event,
   String $path,
 | -%>
-# <%= $job_name %> incron job
-<%= $path %> <%= $event %> <%= $command %>
+<%= $path %> <%= join(any2array($event), ',') %> <%= $command %>

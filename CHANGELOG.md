@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Support for lots more inotify events.
+- Ability to specify an array of events for `incron::job`.
 - This CHANGELOG.
 
 ### Changed

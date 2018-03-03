@@ -16,12 +16,31 @@ describe 'incron::job' do
     it { is_expected.to contain_class('incron') }
 
     it {
-      is_expected.to contain_file('/etc/incron.d/process_file').with(
-        owner:   'root',
-        group:   'root',
-        mode:    '0644',
-        content: %r{^/upload IN_MOVED_TO /usr/bin/process_file$},
-      )
+      is_expected.to contain_file('/etc/incron.d/process_file')
+        .only_with(
+          ensure:  :file,
+          owner:   'root',
+          group:   'root',
+          mode:    '0644',
+          content: '/upload IN_MOVED_TO /usr/bin/process_file'
+        )
+        .without_content(/^#/)
+    }
+  end
+
+  context 'with multiple incron events' do
+    let(:params) do
+      {
+        command: '/usr/bin/process_file',
+        path:    '/upload',
+        event:   %w[IN_MOVED_TO IN_CLOSE_WRITE],
+      }
+    end
+
+    it {
+      is_expected.to contain_file('/etc/incron.d/process_file')
+        .with_content(%r{/upload IN_MOVED_TO,IN_CLOSE_WRITE /usr/bin/process_file})
+        .without_content(/^#/)
     }
   end
 end
