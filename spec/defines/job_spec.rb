@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'incron::job' do
@@ -22,9 +24,9 @@ describe 'incron::job' do
           owner:   'root',
           group:   'root',
           mode:    '0644',
-          content: '/upload IN_MOVED_TO /usr/bin/process_file'
+          content: "/upload IN_MOVED_TO /usr/bin/process_file\n",
         )
-        .without_content(/^#/)
+        .without_content(/^#/) # Apparently causes things to not work
     }
   end
 
