@@ -98,7 +98,7 @@ describe 'incron' do
     it { is_expected.not_to contain_class('incron::config') }
     it { is_expected.not_to contain_class('incron::service') }
 
-    it { is_expected.to contain_package('incron').with_ensure(:absent) }
+    it { is_expected.to contain_package('incron').with_ensure(:purged) }
     it {
       is_expected.to contain_file('/etc/incron.d').with(
         ensure: :absent,
