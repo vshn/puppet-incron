@@ -1,6 +1,6 @@
-# @api private
 # This class handles incron service.
-# Avoid modifying and using private classes directly.
+#
+# @api private
 class incron::service {
 
   service { 'incron':

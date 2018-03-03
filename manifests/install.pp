@@ -1,6 +1,6 @@
-# @api private
 # This class handles incron package.
-# Avoid modifying and using private classes directly.
+#
+# @api private
 class incron::install {
 
   package { 'incron':

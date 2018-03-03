@@ -1,12 +1,10 @@
-# incron::job resource
-#
 # Primary incron resource used to create incron jobs.
 #
 # @example Using incron::job resource
 #   incron::job { 'process_file':
 #     path    => '/upload',
 #     event   => 'IN_CLOSE_WRITE',
-#     command => '/usr/bin/process_file',
+#     command => '/usr/bin/process_file $#',
 #   }
 #
 # @param command Command to execute on triggered event

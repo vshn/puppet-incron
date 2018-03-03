@@ -1,6 +1,6 @@
-# @api private
 # This class handles removal of all incron-related resources.
-# Avoid modifying and using private classes directly.
+#
+# @api private
 class incron::remove {
 
   if versioncmp($facts['os']['release']['full'], '15.04') >= 0 {

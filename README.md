@@ -1,14 +1,14 @@
 # incron
 
 [![Build Status](https://travis-ci.org/pegasd/puppet-incron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-incron)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
+
 
 ## Table of Contents
 
 1. [Description](#description)
 1. [Setup - The basics of getting started with cron](#setup)
-    * [What cron affects](#what-cron-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with cron](#beginning-with-cron)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -25,43 +25,152 @@ exist. Once you switch all incron jobs to this module, simply removing the defin
 ### Beginning with incron
 
 To start out with incron:
+
 ```puppet
 include incron
 ```
 This will install the required package, enable incron service and start managing `/etc/incron.d` directory.
 
+Warning: all unmanaged files in `/etc/incron.d` will be removed at this point. Be careful!
+
 ## Usage
 
 All interactions with incron jobs should be done using `incron::job` resource.
 
+It works with at least 3 parameters:
+
+```puppet
+incron::job { 'upload_file':
+  path    => '/watched_directory',
+  event   => 'IN_CLOSE_WRITE',
+  command => '/usr/local/bin/upload_file $#',
+}
+```
+
 ## Reference
+
+### Public Classes
+* [`incron`](#incron): Main entry point for incron class which must be included in order to start managing all incron-related resources.
+### Private Classes
+* `incron::config`: This class handles incron configuration files.
+* `incron::install`: This class handles incron package.
+* `incron::remove`: This class handles removal of all incron-related resources.
+* `incron::service`: This class handles incron service.
+### Defined types
+* [`incron::job`](#incronjob): Primary incron resource used to create incron jobs.
+* [`incron::whitelist`](#incronwhitelist): Use this to whitelist any system incron jobs you don't want to touch. This will make sure that `/etc/incron.d/${title}` won't get deleted or 
 
 ### Classes
 
-#### Public classes
+### incron
 
-* [`incron`](#incron)
+Main entry point for incron class which must be included
+in order to start managing all incron-related resources.
 
-#### Private classes
+#### Examples
+##### Installing incron
+```puppet
+include incron
+```
 
-* `incron::install`: Handles the packages.
-* `incron::config`: Handles the configuration files.
-* `incron::service`: Handles the service.
-* `incron::remove`: Handles the removal of all incron-related resources.
+##### Uninstalling incron and all related resources
+```puppet
+class { 'incron':
+  ensure => absent,
+}
+```
 
-### Resources
 
-* [`incron::job`](#incron_job)
-* [`incron::whitelist`](#incron_whitelist)
+#### Parameters
 
-### Parameters
+The following parameters are available in the `incron` class.
+
+##### `ensure`
+
+Data type: `Enum[present, absent]`
+
+Whether to enable or disable incron on the system.
+
+Default value: present
+
+##### `dir_mode`
+
+Data type: `Pattern[/^07[057]{2}$/]`
+
+Permissions for /etc/incron.d directory.
+
+Default value: '0755'
+
+
+## Defined types
+
+### incron::job
+
+Primary incron resource used to create incron jobs.
+
+#### Examples
+##### Using incron::job resource
+```puppet
+incron::job { 'process_file':
+  path    => '/upload',
+  event   => 'IN_CLOSE_WRITE',
+  command => '/usr/bin/process_file $#',
+}
+```
+
+
+#### Parameters
+
+The following parameters are available in the `incron::job` defined type.
+
+##### `command`
+
+Data type: `String`
+
+Command to execute on triggered event
+
+##### `event`
+
+Data type: `Variant[Incron::Event,
+    Array[Incron::Event, 2]]`
+
+inotify event (or an array of events)
+
+##### `path`
+
+Data type: `Stdlib::Unixpath`
+
+Path to watched directory
+
+##### `mode`
+
+Data type: `Pattern[/^0[46][046]{2}$/]`
+
+Incron job file permissions, which is located at /etc/incron.d/JOB_NAME
+
+Default value: '0644'
+
+
+### incron::whitelist
+
+Use this to whitelist any system incron jobs you don't want to touch.
+This will make sure that `/etc/incron.d/${title}` won't get deleted or modified.
+
+#### Examples
+##### Using incron::whitelist resource
+```puppet
+incron::whitelist { 'uploader': }
+```
 
 ## Limitations
 
-* although the `cron::job` type checks for Integer boundaries, you're on your own if you are using strings for specifying time intervals.
-Those will be put into the template as-is.
+This module has only been used and tested on the following Ubuntu versions:
+
+- 14.04
+- 16.04
+- 18.04 (currently tested in Docker containers)
 
 ## Development
 
 I'll be happy to know you're using this for one reason or the other. And if you want to
-contribute - even better. Feel free to submit a pull request.
+contribute - even better. Feel free to submit an issue / PR.
