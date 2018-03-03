@@ -3,6 +3,13 @@
 require 'spec_helper_acceptance'
 
 describe 'incron' do
+  managed_files = %w[
+    /etc/incron.allow
+    /etc/incron.deny
+    /etc/incron.conf
+    /etc/incron.d
+  ]
+
   context 'installs?' do
     pp = <<~PUPPET
 
@@ -20,16 +27,14 @@ describe 'incron' do
       it { is_expected.to be_running }
     end
 
-    present_files = %w[
-      /etc/incron.allow
-      /etc/incron.deny
-      /etc/incron.conf
-    ]
-
-    present_files.each do |present_file|
+    managed_files.each do |present_file|
       describe file(present_file) do
         it { is_expected.to exist }
       end
+    end
+
+    describe file('/etc/incron.d') do
+      it { is_expected.to be_directory }
     end
   end
 
@@ -50,13 +55,7 @@ describe 'incron' do
       it { is_expected.not_to be_running }
     end
 
-    absent_files = %w[
-      /etc/incron.allow
-      /etc/incron.deny
-      /etc/incron.conf
-    ]
-
-    absent_files.each do |absent_file|
+    managed_files.each do |absent_file|
       describe file(absent_file) do
         it { is_expected.not_to exist }
       end
