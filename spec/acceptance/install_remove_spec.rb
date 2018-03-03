@@ -10,15 +10,7 @@ describe 'incron' do
 
     PUPPET
 
-    context 'idempotence' do
-      it 'does not fail the first time around' do
-        apply_manifest(pp, catch_failures: true)
-      end
-
-      it 'does not change anything on the second run' do
-        apply_manifest(pp, catch_changes: true)
-      end
-    end
+    apply_and_test_idempotence(pp)
 
     describe package('incron') do
       it { is_expected.to be_installed }
@@ -48,15 +40,7 @@ describe 'incron' do
       }
     PUPPET
 
-    context 'idempotence' do
-      it 'does not fail the first time around' do
-        apply_manifest(pp, catch_failures: true)
-      end
-
-      it 'does not change anything on the second run' do
-        apply_manifest(pp, catch_changes: true)
-      end
-    end
+    apply_and_test_idempotence(pp)
 
     describe package('incron') do
       it { is_expected.not_to be_installed }
