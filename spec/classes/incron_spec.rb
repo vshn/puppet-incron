@@ -12,7 +12,7 @@ describe 'incron' do
 
     describe 'incron::install' do
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_package('incron').with_ensure(:present) }
+      it { is_expected.to contain_package('incron').with_ensure(:installed) }
     end
 
     describe 'incron::config' do

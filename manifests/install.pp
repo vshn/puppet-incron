@@ -4,7 +4,7 @@
 class incron::install {
 
   package { 'incron':
-    ensure => present,
+    ensure => installed,
   }
 
 }
