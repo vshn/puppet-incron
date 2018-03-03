@@ -92,7 +92,7 @@ managing all incron-related resources.</p>
 <p>Declaring incron</p>
 </div></p>
       
-      <pre class="example code"><code><span class='id identifier rubyid_require'>require</span> <span class='id identifier rubyid_incron'>incron</span></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_incron'>incron</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -137,29 +137,6 @@ managing all incron-related resources.</p>
 </ul>
 
 
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="https://github.com/pegasd/puppet-incron" target="_parent" title="https://github.com/pegasd/puppet-incron">https://github.com/pegasd/puppet-incron</a></li>
-    
-  </ul>
-<p class="tag_title">Author:</p>
-<ul class="author">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'>
-<p>Eugene Piven <a href="mailto:epiven@gmail.com">epiven@gmail.com</a></p>
-</div>
-      
-    </li>
-  
-</ul>
-
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -167,6 +144,10 @@ managing all incron-related resources.</p>
         <pre class="lines">
 
 
+11
+12
+13
+14
 15
 16
 17
@@ -184,14 +165,10 @@ managing all incron-related resources.</p>
 29
 30
 31
-32
-33
-34
-35
-36</pre>
+32</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 15</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 11</span>
 
 class incron (
   Enum[present, absent]   $ensure   = present,
