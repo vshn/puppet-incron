@@ -52,13 +52,18 @@ incron::job { 'upload_file':
 ## Reference
 
 ### Public Classes
+
 * [`incron`](#incron): Main entry point for incron class which must be included in order to start managing all incron-related resources.
+
 ### Private Classes
+
 * `incron::config`: This class handles incron configuration files.
 * `incron::install`: This class handles incron package.
 * `incron::remove`: This class handles removal of all incron-related resources.
 * `incron::service`: This class handles incron service.
+
 ### Defined types
+
 * [`incron::job`](#incronjob): Primary incron resource used to create incron jobs.
 * [`incron::whitelist`](#incronwhitelist): Use this to whitelist any system incron jobs you don't want to touch.
   This will make sure that `/etc/incron.d/${title}` won't get deleted nor modified.
