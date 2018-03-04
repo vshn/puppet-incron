@@ -8,7 +8,7 @@
 ## Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with cron](#setup)
+1. [Setup - The basics of getting started with incron](#setup)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -52,13 +52,18 @@ incron::job { 'upload_file':
 ## Reference
 
 ### Public Classes
+
 * [`incron`](#incron): Main entry point for incron class which must be included in order to start managing all incron-related resources.
+
 ### Private Classes
+
 * `incron::config`: This class handles incron configuration files.
 * `incron::install`: This class handles incron package.
 * `incron::remove`: This class handles removal of all incron-related resources.
 * `incron::service`: This class handles incron service.
+
 ### Defined types
+
 * [`incron::job`](#incronjob): Primary incron resource used to create incron jobs.
 * [`incron::whitelist`](#incronwhitelist): Use this to whitelist any system incron jobs you don't want to touch.
   This will make sure that `/etc/incron.d/${title}` won't get deleted nor modified.
@@ -176,4 +181,4 @@ This module has only been used and tested on the following Ubuntu versions:
 ## Development
 
 I'll be happy to know you're using this for one reason or the other. And if you want to
-contribute - even better. Feel free to submit an issue / PR.
+contribute - even better. Feel free to [submit an issue](https://github.com/pegasd/puppet-incron/issues) / [fire up a PR](https://github.com/pegasd/puppet-incron/pulls) / whatever.
