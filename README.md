@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/pegasd/puppet-incron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-incron)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
-[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
+[![Puppet Forge - Downloads](https://img.shields.io/puppetforge/dt/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
+[![Puppet Forge - Score](https://img.shields.io/puppetforge/f/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
 
 
 ## Table of Contents
