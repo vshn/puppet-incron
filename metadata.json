@@ -2,7 +2,7 @@
   "name": "pegas-incron",
   "version": "0.2.0",
   "author": "PegaS",
-  "summary": "Manage incron jobs in a tidy manner",
+  "summary": "Configure and manage incron jobs with focus on tidiness",
   "license": "Apache-2.0",
   "source": "https://github.com/pegasd/puppet-incron",
   "project_page": "https://github.com/pegasd/puppet-incron",
