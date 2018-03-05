@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `$incron::purge_noop` parameter to run purging in `noop` mode.
+- Manage allowed or denied users using `$incron::allowed_users` and `$incron::denied_users`.
 
 ### Changed
 - Split up purging into a separate `incron::purge` manifest.

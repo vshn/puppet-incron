@@ -24,15 +24,17 @@ describe 'incron' do
       it {
         is_expected.to contain_file('/etc/incron.conf').only_with(
           ensure:  :file,
+          force:   true,
           content: '',
           owner:   'root',
           group:   'root',
-          mode:    '0644',
+          mode:    '0640',
         )
       }
       it {
         is_expected.to contain_file('/etc/incron.allow').only_with(
           ensure:  :file,
+          force:   true,
           content: '',
           owner:   'root',
           group:   'root',
@@ -41,7 +43,8 @@ describe 'incron' do
       }
       it {
         is_expected.to contain_file('/etc/incron.deny').only_with(
-          ensure:  :file,
+          ensure:  :absent,
+          force:   true,
           content: '',
           owner:   'root',
           group:   'root',
@@ -82,6 +85,41 @@ describe 'incron' do
 
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/incron.d').with_noop(true) }
+  end
+
+  context 'with custom allowed_users' do
+    let(:params) { { allowed_users: %w[nice_guy nice_girl] } }
+
+    it { is_expected.to compile.with_all_deps }
+    it {
+      is_expected.to contain_file('/etc/incron.allow')
+        .with_ensure(:file)
+        .with_content("nice_guy\nnice_girl\n")
+    }
+    it { is_expected.to contain_file('/etc/incron.deny').with_ensure(:absent) }
+  end
+
+  context 'with custom denied_users' do
+    let(:params) { { denied_users: %w[bad_guy bad_girl] } }
+
+    it { is_expected.to compile.with_all_deps }
+    it {
+      is_expected.to contain_file('/etc/incron.deny')
+        .with_ensure(:file)
+        .with_content("bad_guy\nbad_girl\n")
+    }
+    it { is_expected.to contain_file('/etc/incron.allow').with_ensure(:absent) }
+  end
+
+  context 'fail when both allowed_users and denied_users are specified' do
+    let(:params) do
+      {
+        allowed_users: %w[nice_guy],
+        denied_users:  %w[bad_guy],
+      }
+    end
+
+    it { is_expected.to compile.and_raise_error(/Either allowed or denied incron users must be specified, not both./) }
   end
 
   context 'with ensure => absent' do
