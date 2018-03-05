@@ -1,4 +1,4 @@
-# Puppet module to manage incron jobs
+# Configure and manage incron jobs with focus on tidiness
 
 [![Build Status](https://travis-ci.org/pegasd/puppet-incron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-incron)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/pegas/incron.svg)](https://forge.puppetlabs.com/pegas/incron)
