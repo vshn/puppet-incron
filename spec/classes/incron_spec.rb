@@ -20,8 +20,8 @@ describe 'incron' do
     describe 'incron::config' do
       it { is_expected.to compile.with_all_deps }
       it {
-        is_expected.to contain_file('/etc/incron.conf').with(
-          ensure:  :present,
+        is_expected.to contain_file('/etc/incron.conf').only_with(
+          ensure:  :file,
           content: '',
           owner:   'root',
           group:   'root',
@@ -29,8 +29,8 @@ describe 'incron' do
         )
       }
       it {
-        is_expected.to contain_file('/etc/incron.allow').with(
-          ensure:  :present,
+        is_expected.to contain_file('/etc/incron.allow').only_with(
+          ensure:  :file,
           content: '',
           owner:   'root',
           group:   'root',
@@ -38,8 +38,8 @@ describe 'incron' do
         )
       }
       it {
-        is_expected.to contain_file('/etc/incron.deny').with(
-          ensure:  :present,
+        is_expected.to contain_file('/etc/incron.deny').only_with(
+          ensure:  :file,
           content: '',
           owner:   'root',
           group:   'root',
@@ -47,7 +47,7 @@ describe 'incron' do
         )
       }
       it {
-        is_expected.to contain_file('/etc/incron.d').with(
+        is_expected.to contain_file('/etc/incron.d').only_with(
           ensure:  :directory,
           recurse: true,
           purge:   true,
@@ -62,7 +62,7 @@ describe 'incron' do
     describe 'incron::service' do
       it { is_expected.to compile.with_all_deps }
       it {
-        is_expected.to contain_service('incron').with(
+        is_expected.to contain_service('incron').only_with(
           ensure:     :running,
           enable:     true,
           hasrestart: true,
@@ -77,7 +77,7 @@ describe 'incron' do
 
     it { is_expected.to compile.with_all_deps }
     it {
-      is_expected.to contain_file('/etc/incron.d').with(
+      is_expected.to contain_file('/etc/incron.d').only_with(
         ensure:  :directory,
         recurse: true,
         purge:   true,

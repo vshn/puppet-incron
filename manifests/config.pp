@@ -4,7 +4,7 @@
 class incron::config {
 
   file { [ '/etc/incron.allow', '/etc/incron.deny' ]:
-    ensure  => present,
+    ensure  => file,
     content => '',
     owner   => 'root',
     group   => 'root',
@@ -12,7 +12,7 @@ class incron::config {
   }
 
   file { '/etc/incron.conf':
-    ensure  => present,
+    ensure  => file,
     content => '',
     owner   => 'root',
     group   => 'root',
