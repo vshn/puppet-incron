@@ -19,14 +19,4 @@ class incron::config {
     mode    => '0644',
   }
 
-  file { '/etc/incron.d':
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    force   => true,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $::incron::dir_mode,
-  }
-
 }

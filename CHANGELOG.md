@@ -5,8 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `$incron::purge_noop` parameter to run purging in `noop` mode.
+
 ### Changed
+- Split up purging into a separate `incron::purge` manifest.
 - 'ensure => file' where applicable.
+
+### Removed
+- `$incron::dir_mode` parameter.
 
 ## [0.2.0] - 2018-03-04
 ### Added

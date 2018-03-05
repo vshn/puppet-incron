@@ -10,10 +10,10 @@
 #   }
 #
 # @param ensure Whether to enable or disable incron on the system.
-# @param dir_mode Permissions for /etc/incron.d directory.
+# @param purge_noop Run purging in `noop` mode.
 class incron (
-  Enum[present, absent]   $ensure   = present,
-  Pattern[/^07[057]{2}$/] $dir_mode = '0755',
+  Enum[present, absent] $ensure     = present,
+  Boolean               $purge_noop = false,
 ) {
 
   if $ensure == present {
@@ -22,9 +22,11 @@ class incron (
     contain incron::config
     contain incron::service
 
-    Class['::incron::install']
-    -> Class['::incron::config']
-    ~> Class['::incron::service']
+    contain incron::purge
+
+    Class['::incron::install'] -> Class['::incron::config'] -> Class['::incron::purge']
+    Class['::incron::install'] ~> Class['::incron::service']
+    Class['::incron::config'] ~> Class['::incron::service']
 
   } else {
 
