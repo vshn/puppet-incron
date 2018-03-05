@@ -7,7 +7,7 @@ describe 'incron::whitelist' do
     let(:title) { 'whitelisted' }
 
     it {
-      is_expected.to contain_file('/etc/incron.d/whitelisted').with(
+      is_expected.to contain_file('/etc/incron.d/whitelisted').only_with(
         ensure:  :file,
         replace: false,
       )

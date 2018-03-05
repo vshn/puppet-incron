@@ -26,7 +26,7 @@ describe 'incron::job' do
           mode:    '0644',
           content: "/upload IN_MOVED_TO /usr/bin/process_file\n",
         )
-        .without_content(/^#/) # Apparently causes things to not work
+        .without_content(/^#/) # Causes incron to spew tons of warnings in logs
     }
   end
 
