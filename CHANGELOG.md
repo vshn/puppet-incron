@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `$incron::purge_noop` parameter to run purging in `noop` mode.
 - Manage allowed or denied users using `$incron::allowed_users` and `$incron::denied_users`.
 - Manage package version through `$incron::package_version` parameter.
+- The following parameters are now available to configure the incron service management:
+  - `$incron::service_manage`
+  - `$incron::service_ensure`
+  - `$incron::service_enable`
 
 ### Changed
 - Split up purging into a separate `incron::purge` manifest.

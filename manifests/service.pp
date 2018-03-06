@@ -3,11 +3,13 @@
 # @api private
 class incron::service {
 
-  service { 'incron':
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    hasstatus  => false,
+  if $::incron::service_manage {
+    service { 'incron':
+      ensure     => $::incron::service_ensure,
+      enable     => $::incron::service_enable,
+      hasrestart => true,
+      hasstatus  => true,
+    }
   }
 
 }

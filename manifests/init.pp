@@ -13,19 +13,27 @@
 # @param package_version Provide custom `incron` package version here.
 # @param allowed_users List of users allowed to use incron. By default, only root can.
 # @param denied_users List of users denied to use incron.
+# @param service_manage Whether to manage incron service at all.
+# @param service_ensure Incron service's 'ensure' parameter.
+# @param service_enable Incron service's 'enable' parameter.
 # @param purge_noop Run purging in `noop` mode.
 class incron (
-  Enum[present, absent] $ensure          = present,
+  Enum[present, absent]  $ensure          = present,
 
   # incron::install
-  String[1]             $package_version = installed,
+  String[1]              $package_version = installed,
 
   # incron::config
-  Array[String[1]]      $allowed_users   = [ ],
-  Array[String[1]]      $denied_users    = [ ],
+  Array[String[1]]       $allowed_users   = [ ],
+  Array[String[1]]       $denied_users    = [ ],
+
+  # incron::service
+  Boolean                $service_manage  = true,
+  Enum[running, stopped] $service_ensure  = running,
+  Boolean                $service_enable  = true,
 
   # incron::purge
-  Boolean               $purge_noop      = false,
+  Boolean                $purge_noop      = false,
 ) {
 
   if $ensure == present {

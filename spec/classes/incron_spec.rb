@@ -60,7 +60,7 @@ describe 'incron' do
           ensure:     :running,
           enable:     true,
           hasrestart: true,
-          hasstatus:  false,
+          hasstatus:  true,
         )
       }
     end
@@ -127,6 +127,26 @@ describe 'incron' do
 
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_package('incron').with_ensure('0.5.12-1') }
+  end
+
+  context 'service management' do
+    context 'no management at all' do
+      let(:params) { { service_manage: false } }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.not_to contain_service('incron') }
+    end
+
+    context 'ensure => stopped' do
+      let(:params) { { service_ensure: :stopped } }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_service('incron').with_ensure(:stopped) }
+    end
+
+    context 'enable => false' do
+      let(:params) { { service_enable: false } }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_service('incron').with_enable(false) }
+    end
   end
 
   context 'with ensure => absent' do
