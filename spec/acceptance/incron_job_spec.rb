@@ -74,9 +74,7 @@ describe 'incron::job' do
     ]
 
     cleaned_up_files.each do |cleaned_up_file|
-      describe file(cleaned_up_file) do
-        it { is_expected.not_to exist }
-      end
+      describe file(cleaned_up_file) { it { is_expected.not_to exist } }
     end
   end
 end

@@ -24,13 +24,8 @@ describe 'incron::purge' do
 
     apply_and_test_idempotence(pp)
 
-    describe file('/etc/incron.d/job_one') do
-      it { is_expected.to exist }
-    end
-
-    describe file('/etc/incron.d/job_two') do
-      it { is_expected.to exist }
-    end
+    describe file('/etc/incron.d/job_one') { it { is_expected.to exist } }
+    describe file('/etc/incron.d/job_two') { it { is_expected.to exist } }
   end
 
   context 'manage only one incron job' do
@@ -48,12 +43,7 @@ describe 'incron::purge' do
 
     apply_and_test_idempotence(pp)
 
-    describe file('/etc/incron.d/job_one') do
-      it { is_expected.to exist }
-    end
-
-    describe file('/etc/incron.d/job_two') do
-      it { is_expected.not_to exist }
-    end
+    describe file('/etc/incron.d/job_one') { it { is_expected.to exist } }
+    describe file('/etc/incron.d/job_two') { it { is_expected.not_to exist } }
   end
 end

@@ -12,30 +12,10 @@ describe 'incron' do
 
     apply_and_test_idempotence(pp)
 
-    describe package('incron') do
-      it { is_expected.to be_installed }
-    end
-
-    describe service('incron') do
-      it { is_expected.to be_running }
-    end
-
-    describe file('/etc/incron.allow') do
-      it { is_expected.to exist }
-      its(:content) { is_expected.to match('') }
-    end
-
-    describe file('/etc/incron.conf') do
-      it { is_expected.to exist }
-      its(:content) { is_expected.to match('') }
-    end
-
-    describe file('/etc/incron.d') do
-      it { is_expected.to exist }
-      it { is_expected.to be_directory }
-    end
-
-    describe file('/etc/incron.deny') { it { is_expected.not_to exist } }
+    # Installs and runs
+    describe package('incron') { it { is_expected.to be_installed } }
+    describe service('incron') { it { is_expected.to be_running } }
+    describe file('/etc/incron.d') { it { is_expected.to be_directory } }
   end
 
   context 'removes?' do
@@ -47,25 +27,16 @@ describe 'incron' do
 
     apply_and_test_idempotence(pp)
 
-    describe package('incron') do
-      it { is_expected.not_to be_installed }
-    end
-
-    describe service('incron') do
-      it { is_expected.not_to be_running }
-    end
-
-    managed_files = %w[
+    # Uninstalls and cleans up
+    describe package('incron') { it { is_expected.not_to be_installed } }
+    describe service('incron') { it { is_expected.not_to be_running } }
+    %w[
       /etc/incron.allow
       /etc/incron.deny
       /etc/incron.conf
       /etc/incron.d
-    ]
-
-    managed_files.each do |absent_file|
-      describe file(absent_file) do
-        it { is_expected.not_to exist }
-      end
+    ].each do |absent_file|
+      describe file(absent_file) { it { is_expected.not_to exist } }
     end
   end
 end
