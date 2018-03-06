@@ -60,6 +60,7 @@ incron::job { 'upload_file':
 
 * `incron::config`: This class handles incron configuration files.
 * `incron::install`: This class handles incron package.
+* `incron::purge`: Purge `/etc/incron.d` directory.
 * `incron::remove`: This class handles removal of all incron-related resources.
 * `incron::service`: This class handles incron service.
 
@@ -102,13 +103,61 @@ Whether to enable or disable incron on the system.
 
 Default value: present
 
-##### `dir_mode`
+##### `package_version`
 
-Data type: `Pattern[/^07[057]{2}$/]`
+Data type: `String[1]`
 
-Permissions for /etc/incron.d directory.
+Provide custom `incron` package version here.
 
-Default value: '0755'
+Default value: installed
+
+##### `allowed_users`
+
+Data type: `Array[String[1]]`
+
+List of users allowed to use incron. By default, only root can.
+
+Default value: [ ]
+
+##### `denied_users`
+
+Data type: `Array[String[1]]`
+
+List of users denied to use incron.
+
+Default value: [ ]
+
+##### `service_manage`
+
+Data type: `Boolean`
+
+Whether to manage incron service at all.
+
+Default value: `true`
+
+##### `service_ensure`
+
+Data type: `Enum[running, stopped]`
+
+Incron service's 'ensure' parameter.
+
+Default value: running
+
+##### `service_enable`
+
+Data type: `Boolean`
+
+Incron service's 'enable' parameter.
+
+Default value: `true`
+
+##### `purge_noop`
+
+Data type: `Boolean`
+
+Run purging in `noop` mode.
+
+Default value: `false`
 
 
 ## Defined types
@@ -163,7 +212,8 @@ Default value: '0644'
 ### incron::whitelist
 
 Use this to whitelist any system incron jobs you don't want to touch.
-This will make sure that `/etc/incron.d/${title}` won't get deleted nor modified.
+This will make sure that `/etc/incron.d/${title}` won't get deleted
+nor modified.
 
 #### Examples
 ##### Using incron::whitelist resource
