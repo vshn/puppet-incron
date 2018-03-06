@@ -122,6 +122,13 @@ describe 'incron' do
     it { is_expected.to compile.and_raise_error(/Either allowed or denied incron users must be specified, not both./) }
   end
 
+  context 'with custom package version' do
+    let(:params) { { package_version: '0.5.12-1' } }
+
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_package('incron').with_ensure('0.5.12-1') }
+  end
+
   context 'with ensure => absent' do
     let(:facts) { { os: { release: { full: '14.04' } } } }
     let(:params) { { ensure: 'absent' } }
