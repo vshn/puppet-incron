@@ -28,7 +28,7 @@ describe 'incron' do
           content: '',
           owner:   'root',
           group:   'root',
-          mode:    '0640',
+          mode:    '0644',
         )
       }
       it {
@@ -38,7 +38,7 @@ describe 'incron' do
           content: '',
           owner:   'root',
           group:   'root',
-          mode:    '0640',
+          mode:    '0644',
         )
       }
       it {
@@ -48,7 +48,7 @@ describe 'incron' do
           content: '',
           owner:   'root',
           group:   'root',
-          mode:    '0640',
+          mode:    '0644',
         )
       }
     end
