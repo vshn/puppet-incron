@@ -50,6 +50,8 @@ describe 'incrontab(1)' do
 
     apply_and_test_idempotence pp
 
-    describe user('luke') do it { is_expected.not_to exist } end
+    describe user('luke') do
+      it { is_expected.not_to exist }
+    end
   end
 end
