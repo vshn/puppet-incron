@@ -13,10 +13,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - `$incron::service_manage`
   - `$incron::service_ensure`
   - `$incron::service_enable`
+- Acceptance tests for:
+  - `incron::whitelist`
+  - `$incron::allowed_users`
 
 ### Changed
 - Split up purging into a separate `incron::purge` manifest.
 - 'ensure => file' where applicable.
+
+### Fixed
+- `/etc/incron.*` configs now have `mode => '0644'`.
 
 ### Removed
 - `$incron::dir_mode` parameter.
