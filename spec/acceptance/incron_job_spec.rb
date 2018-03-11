@@ -32,7 +32,7 @@ describe 'incron::job' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
   end
 
   context 'incron job works' do
@@ -64,7 +64,7 @@ describe 'incron::job' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
 
     cleaned_up_files = %w[
       /usr/bin/test_notify

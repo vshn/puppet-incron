@@ -12,7 +12,7 @@ describe 'cron::whitelist' do
   PUPPET
 
   context 'whitelist an incron job in /etc/incron.d' do
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
   end
 
   context 'fake the incron job and see that it is not purged' do
@@ -26,7 +26,7 @@ describe 'cron::whitelist' do
 
     describe file('/etc/incron.d/cant_touch_this') do
       it { is_expected.to exist }
-      its(:content) { is_expected.to match(/^hello$/) }
+      its(:content) { is_expected.to eq("hello\n") }
     end
   end
 end

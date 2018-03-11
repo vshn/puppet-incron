@@ -10,7 +10,7 @@ describe 'incron' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
 
     # Installs and runs
     describe package('incron') do
@@ -31,7 +31,7 @@ describe 'incron' do
       }
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
 
     # Uninstalls and cleans up
     describe package('incron') do

@@ -22,7 +22,7 @@ describe 'incron::purge' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
 
     describe file('/etc/incron.d/job_one') do
       it { is_expected.to exist }
@@ -45,7 +45,7 @@ describe 'incron::purge' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    apply_and_test_idempotence pp
 
     describe file('/etc/incron.d/job_one') do
       it { is_expected.to exist }
