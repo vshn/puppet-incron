@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.3.0] - 2018-03-14
 ### Added
 - `$incron::purge_noop` parameter to run purging in `noop` mode.
 - Manage allowed or denied users using `$incron::allowed_users` and `$incron::denied_users`.
