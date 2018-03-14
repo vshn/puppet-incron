@@ -58,20 +58,22 @@
       </div>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-Puppet+module+to+manage+incron+jobs">Puppet module to manage incron jobs</h1>
+<h1 id="label-Configure+and+manage+incron+jobs+with+focus+on+tidiness">Configure and manage incron jobs with focus on tidiness</h1>
 
 <p><a href="https://travis-ci.org/pegasd/puppet-incron"><img
 src="https://travis-ci.org/pegasd/puppet-incron.svg?branch=master"></a> <a
 href="https://forge.puppetlabs.com/pegas/incron"><img
 src="https://img.shields.io/puppetforge/v/pegas/incron.svg"></a> <a
 href="https://forge.puppetlabs.com/pegas/incron"><img
-src="https://img.shields.io/puppetforge/dt/pegas/incron.svg"></a></p>
+src="https://img.shields.io/puppetforge/dt/pegas/incron.svg"></a> <a
+href="https://forge.puppetlabs.com/pegas/incron"><img
+src="https://img.shields.io/puppetforge/f/pegas/incron.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
 <p><a href="#description">Description</a></p>
 </li><li>
-<p><a href="#setup">Setup - The basics of getting started with cron</a></p>
+<p><a href="#setup">Setup - The basics of getting started with incron</a></p>
 </li><li>
 <p><a href="#usage">Usage - Configuration options and additional
 functionality</a></p>
@@ -129,20 +131,24 @@ at this point. Be careful!</p>
 <ul><li>
 <p><a href="#incron">incron</a>: Main entry point for incron class which must
 be included in order to start managing all incron-related resources.</p>
+</li></ul>
 
 <h3 id="label-Private+Classes">Private Classes</h3>
-</li><li>
+<ul><li>
 <p><code>incron::config</code>: This class handles incron configuration files.</p>
 </li><li>
 <p><code>incron::install</code>: This class handles incron package.</p>
+</li><li>
+<p><code>incron::purge</code>: Purge <code>/etc/incron.d</code> directory.</p>
 </li><li>
 <p><code>incron::remove</code>: This class handles removal of all
 incron-related resources.</p>
 </li><li>
 <p><code>incron::service</code>: This class handles incron service.</p>
+</li></ul>
 
 <h3 id="label-Defined+types">Defined types</h3>
-</li><li>
+<ul><li>
 <p><a href="#incronjob">incron::job</a>: Primary incron resource used to
 create incron jobs.</p>
 </li><li>
@@ -183,13 +189,61 @@ managing all incron-related resources.</p>
 
 <p>Default value: present</p>
 
-<h5 id="label-dir_mode"><code>dir_mode</code></h5>
+<h5 id="label-package_version"><code>package_version</code></h5>
 
-<p>Data type: <code>Pattern[/^07[057]{2}$/]</code></p>
+<p>Data type: <code>String[1]</code></p>
 
-<p>Permissions for /etc/incron.d directory.</p>
+<p>Provide custom <code>incron</code> package version here.</p>
 
-<p>Default value: &#39;0755&#39;</p>
+<p>Default value: installed</p>
+
+<h5 id="label-allowed_users"><code>allowed_users</code></h5>
+
+<p>Data type: <code>Array[String[1]]</code></p>
+
+<p>List of users allowed to use incron. By default, only root can.</p>
+
+<p>Default value: [ ]</p>
+
+<h5 id="label-denied_users"><code>denied_users</code></h5>
+
+<p>Data type: <code>Array[String[1]]</code></p>
+
+<p>List of users denied to use incron.</p>
+
+<p>Default value: [ ]</p>
+
+<h5 id="label-service_manage"><code>service_manage</code></h5>
+
+<p>Data type: <code>Boolean</code></p>
+
+<p>Whether to manage incron service at all.</p>
+
+<p>Default value: <code>true</code></p>
+
+<h5 id="label-service_ensure"><code>service_ensure</code></h5>
+
+<p>Data type: <code>Enum[running, stopped]</code></p>
+
+<p>Incron service&#39;s &#39;ensure&#39; parameter.</p>
+
+<p>Default value: running</p>
+
+<h5 id="label-service_enable"><code>service_enable</code></h5>
+
+<p>Data type: <code>Boolean</code></p>
+
+<p>Incron service&#39;s &#39;enable&#39; parameter.</p>
+
+<p>Default value: <code>true</code></p>
+
+<h5 id="label-purge_noop"><code>purge_noop</code></h5>
+
+<p>Data type: <code>Boolean</code></p>
+
+<p>Run purging in <code>noop</code> mode.</p>
+
+<p>Default value: <code>false</code></p>
 
 <h2 id="label-Defined+types">Defined types</h2>
 
@@ -265,8 +319,10 @@ deleted nor modified.</p>
 <h2 id="label-Development">Development</h2>
 
 <p>I&#39;ll be happy to know you&#39;re using this for one reason or the
-other. And if you want to contribute - even better. Feel free to submit an
-issue / PR.</p>
+other. And if you want to contribute - even better. Feel free to <a
+href="https://github.com/pegasd/puppet-incron/issues">submit an issue</a> /
+<a href="https://github.com/pegasd/puppet-incron/pulls">fire up a PR</a> /
+whatever.</p>
 </div></div>
 
       <div id="footer">

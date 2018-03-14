@@ -103,7 +103,7 @@
 class incron::install {
 
   package { &#39;incron&#39;:
-    ensure =&gt; installed,
+    ensure =&gt; $::incron::package_version,
   }
 
 }</pre>
