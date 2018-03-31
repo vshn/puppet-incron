@@ -30,7 +30,7 @@ define incron::job (
       command => $command,
       event   => $event,
       path    => $path,
-    })
+    }),
   }
 
 }

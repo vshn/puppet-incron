@@ -14,14 +14,15 @@ class incron::remove {
     ensure => purged,
   }
 
-  file { [
-    '/etc/incron.d',
-    '/etc/incron.conf',
-    '/etc/incron.allow',
-    '/etc/incron.deny',
-  ]:
-    ensure => absent,
-    force  => true,
+  file {
+    [
+      '/etc/incron.d',
+      '/etc/incron.conf',
+      '/etc/incron.allow',
+      '/etc/incron.deny',
+    ]:
+      ensure => absent,
+      force  => true,
   }
 
 }
