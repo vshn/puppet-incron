@@ -1,6 +1,7 @@
 <%- |
-  String $command,
-  Variant[String, Array[String, 2]] $event,
-  String $path,
+  Variant[String,
+    Array[String, 2]] $event,
+  String              $path,
+  String              $command,
 | -%>
 <%= $path %> <%= join(any2array($event), ',') %> <%= $command %>
