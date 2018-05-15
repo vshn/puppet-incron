@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Moved reference to a standalone strings-generated `REFERENCE.md`.
+- `rspec-puppet-facts` now supports Ubuntu 18.04, so we can use it now. Sweet!
 
 ### Fixed
 - `puppetlabs_spec_helper`'s `mock_with` deprecation warning.

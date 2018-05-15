@@ -3,8 +3,10 @@
 RSpec.configure { |c| c.mock_with :rspec }
 
 require 'puppetlabs_spec_helper/module_spec_helper'
+require 'rspec-puppet-facts'
 
 RSpec.configure do |c|
+  include RspecPuppetFacts
   c.formatter     = :documentation
   c.default_facts = { osfamily: 'Debian' }
   c.after(:suite) { RSpec::Puppet::Coverage.report! }
