@@ -63,9 +63,9 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 ## Limitations
 
 * Made for and tested only on the following Ubuntu distributions:
-  * 14.04
-  * 16.04
-  * 18.04
+    * 14.04
+    * 16.04
+    * 18.04
 
 ## Development
 
