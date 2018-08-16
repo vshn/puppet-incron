@@ -35,7 +35,7 @@ describe 'incron::job' do
       {
         command: '/usr/bin/process_file',
         path:    '/upload',
-        event:   %w[IN_MOVED_TO IN_CLOSE_WRITE],
+        event:   ['IN_MOVED_TO', 'IN_CLOSE_WRITE'],
       }
     end
 

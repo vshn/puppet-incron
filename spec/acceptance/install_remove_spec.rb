@@ -40,12 +40,7 @@ describe 'incron' do
     describe service('incron') do
       it { is_expected.not_to be_running }
     end
-    %w[
-      /etc/incron.allow
-      /etc/incron.deny
-      /etc/incron.conf
-      /etc/incron.d
-    ].each do |absent_file|
+    ['/etc/incron.allow', '/etc/incron.deny', '/etc/incron.conf', '/etc/incron.d'].each do |absent_file|
       describe file(absent_file) do
         it { is_expected.not_to exist }
       end

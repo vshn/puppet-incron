@@ -88,7 +88,7 @@ describe 'incron' do
   end
 
   context 'with custom allowed_users' do
-    let(:params) { { allowed_users: %w[nice_guy nice_girl] } }
+    let(:params) { { allowed_users: ['nice_guy', 'nice_girl'] } }
 
     it { is_expected.to compile.with_all_deps }
     it {
@@ -100,7 +100,7 @@ describe 'incron' do
   end
 
   context 'with custom denied_users' do
-    let(:params) { { denied_users: %w[bad_guy bad_girl] } }
+    let(:params) { { denied_users: ['bad_guy', 'bad_girl'] } }
 
     it { is_expected.to compile.with_all_deps }
     it {
@@ -114,8 +114,8 @@ describe 'incron' do
   context 'fail when both allowed_users and denied_users are specified' do
     let(:params) do
       {
-        allowed_users: %w[nice_guy],
-        denied_users:  %w[bad_guy],
+        allowed_users: ['nice_guy'],
+        denied_users:  ['bad_guy'],
       }
     end
 
@@ -164,12 +164,7 @@ describe 'incron' do
     context 'incron::remove' do
       it { is_expected.to contain_package('incron').only_with_ensure(:purged) }
 
-      removed_files = %w[
-        /etc/incron.d
-        /etc/incron.conf
-        /etc/incron.allow
-        /etc/incron.deny
-      ]
+      removed_files = ['/etc/incron.d', '/etc/incron.conf', '/etc/incron.allow', '/etc/incron.deny']
 
       removed_files.each do |removed_file|
         it {
