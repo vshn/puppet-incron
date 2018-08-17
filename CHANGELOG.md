@@ -5,12 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- The module is now PDK-compliant.
+
 ### Changed
 - Moved reference to a standalone strings-generated `REFERENCE.md`.
-- `rspec-puppet-facts` now supports Ubuntu 18.04, so we can use it now. Sweet!
+- `rspec-puppet-facts` started supporting Ubuntu 18.04, so we can use it now. Sweet!
 
 ### Fixed
 - `puppetlabs_spec_helper`'s `mock_with` deprecation warning.
+- Acceptance tests with latest beaker.
 
 ## [0.3.0] - 2018-03-14
 ### Added
