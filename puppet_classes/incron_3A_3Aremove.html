@@ -6,7 +6,7 @@
 <title>
   Puppet Class: incron::remove
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -79,6 +79,8 @@
 
   </div>
 </div>
+
+
 <div class="tags">
   
 
@@ -112,7 +114,8 @@
 24
 25
 26
-27</pre>
+27
+28</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/remove.pp', line 4</span>
@@ -130,14 +133,15 @@ class incron::remove {
     ensure =&gt; purged,
   }
 
-  file { [
-    &#39;/etc/incron.d&#39;,
-    &#39;/etc/incron.conf&#39;,
-    &#39;/etc/incron.allow&#39;,
-    &#39;/etc/incron.deny&#39;,
-  ]:
-    ensure =&gt; absent,
-    force  =&gt; true,
+  file {
+    [
+      &#39;/etc/incron.d&#39;,
+      &#39;/etc/incron.conf&#39;,
+      &#39;/etc/incron.allow&#39;,
+      &#39;/etc/incron.deny&#39;,
+    ]:
+      ensure =&gt; absent,
+      force  =&gt; true,
   }
 
 }</pre>

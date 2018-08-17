@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -71,19 +71,19 @@ src="https://img.shields.io/puppetforge/f/pegas/incron.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
-<p><a href="#description">Description</a></p>
+<p><a href="#label-Description">Description</a></p>
 </li><li>
-<p><a href="#setup">Setup - The basics of getting started with incron</a></p>
+<p><a href="#label-Setup">Setup - The basics of getting started with incron</a></p>
 </li><li>
-<p><a href="#usage">Usage - Configuration options and additional
+<p><a href="#label-Usage">Usage - Configuration options and additional
 functionality</a></p>
 </li><li>
-<p><a href="#reference">Reference - An under-the-hood peek at what the module
+<p><a href="#label-Reference">Reference - An under-the-hood peek at what the module
 is doing and how</a></p>
 </li><li>
-<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
 </li><li>
-<p><a href="#development">Development - Guide for contributing to the
+<p><a href="#label-Development">Development - Guide for contributing to the
 module</a></p>
 </li></ol>
 
@@ -127,193 +127,25 @@ at this point. Be careful!</p>
 
 <h2 id="label-Reference">Reference</h2>
 
-<h3 id="label-Public+Classes">Public Classes</h3>
+<h3 id="label-Type+Aliases">Type Aliases</h3>
 <ul><li>
-<p><a href="#incron">incron</a>: Main entry point for incron class which must
-be included in order to start managing all incron-related resources.</p>
+<p><code>Incron::Event</code> - supported inotify events.</p>
 </li></ul>
 
-<h3 id="label-Private+Classes">Private Classes</h3>
-<ul><li>
-<p><code>incron::config</code>: This class handles incron configuration files.</p>
-</li><li>
-<p><code>incron::install</code>: This class handles incron package.</p>
-</li><li>
-<p><code>incron::purge</code>: Purge <code>/etc/incron.d</code> directory.</p>
-</li><li>
-<p><code>incron::remove</code>: This class handles removal of all
-incron-related resources.</p>
-</li><li>
-<p><code>incron::service</code>: This class handles incron service.</p>
-</li></ul>
+<h3 id="label-Full+reference">Full reference</h3>
 
-<h3 id="label-Defined+types">Defined types</h3>
-<ul><li>
-<p><a href="#incronjob">incron::job</a>: Primary incron resource used to
-create incron jobs.</p>
-</li><li>
-<p><a href="#incronwhitelist">incron::whitelist</a>: Use this to whitelist any
-system incron jobs you don&#39;t want to touch.  This will make sure that
-<code>/etc/incron.d/${title}</code> won&#39;t get deleted nor modified.</p>
-</li></ul>
-
-<h3 id="label-Classes">Classes</h3>
-
-<h3 id="label-incron">incron</h3>
-
-<p>Main entry point for incron class which must be included in order to start
-managing all incron-related resources.</p>
-
-<h4 id="label-Examples">Examples</h4>
-
-<h5 id="label-Installing+incron">Installing incron</h5>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_incron'>incron</span>
-</code></pre>
-
-<h5 id="label-Uninstalling+incron+and+all+related+resources">Uninstalling incron and all related resources</h5>
-
-<pre class="code ruby"><code class="ruby">class { &#39;incron&#39;:
-  ensure =&gt; absent,
-}</code></pre>
-
-<h4 id="label-Parameters">Parameters</h4>
-
-<p>The following parameters are available in the <code>incron</code> class.</p>
-
-<h5 id="label-ensure"><code>ensure</code></h5>
-
-<p>Data type: <code>Enum[present, absent]</code></p>
-
-<p>Whether to enable or disable incron on the system.</p>
-
-<p>Default value: present</p>
-
-<h5 id="label-package_version"><code>package_version</code></h5>
-
-<p>Data type: <code>String[1]</code></p>
-
-<p>Provide custom <code>incron</code> package version here.</p>
-
-<p>Default value: installed</p>
-
-<h5 id="label-allowed_users"><code>allowed_users</code></h5>
-
-<p>Data type: <code>Array[String[1]]</code></p>
-
-<p>List of users allowed to use incron. By default, only root can.</p>
-
-<p>Default value: [ ]</p>
-
-<h5 id="label-denied_users"><code>denied_users</code></h5>
-
-<p>Data type: <code>Array[String[1]]</code></p>
-
-<p>List of users denied to use incron.</p>
-
-<p>Default value: [ ]</p>
-
-<h5 id="label-service_manage"><code>service_manage</code></h5>
-
-<p>Data type: <code>Boolean</code></p>
-
-<p>Whether to manage incron service at all.</p>
-
-<p>Default value: <code>true</code></p>
-
-<h5 id="label-service_ensure"><code>service_ensure</code></h5>
-
-<p>Data type: <code>Enum[running, stopped]</code></p>
-
-<p>Incron service&#39;s &#39;ensure&#39; parameter.</p>
-
-<p>Default value: running</p>
-
-<h5 id="label-service_enable"><code>service_enable</code></h5>
-
-<p>Data type: <code>Boolean</code></p>
-
-<p>Incron service&#39;s &#39;enable&#39; parameter.</p>
-
-<p>Default value: <code>true</code></p>
-
-<h5 id="label-purge_noop"><code>purge_noop</code></h5>
-
-<p>Data type: <code>Boolean</code></p>
-
-<p>Run purging in <code>noop</code> mode.</p>
-
-<p>Default value: <code>false</code></p>
-
-<h2 id="label-Defined+types">Defined types</h2>
-
-<h3 id="label-incron-3A-3Ajob">incron::job</h3>
-
-<p>Primary incron resource used to create incron jobs.</p>
-
-<h4 id="label-Examples">Examples</h4>
-
-<h5 id="label-Using+incron-3A-3Ajob+resource">Using incron::job resource</h5>
-
-<pre class="code ruby"><code class="ruby">incron::job { &#39;process_file&#39;:
-  path    =&gt; &#39;/upload&#39;,
-  event   =&gt; &#39;IN_CLOSE_WRITE&#39;,
-  command =&gt; &#39;/usr/bin/process_file $#&#39;,
-}</code></pre>
-
-<h4 id="label-Parameters">Parameters</h4>
-
-<p>The following parameters are available in the <code>incron::job</code>
-defined type.</p>
-
-<h5 id="label-command"><code>command</code></h5>
-
-<p>Data type: <code>String</code></p>
-
-<p>Command to execute on triggered event</p>
-
-<h5 id="label-event"><code>event</code></h5>
-
-<p>Data type: <code>Variant[Incron::Event,     Array[Incron::Event, 2]]</code></p>
-
-<p>inotify event (or an array of events)</p>
-
-<h5 id="label-path"><code>path</code></h5>
-
-<p>Data type: <code>Stdlib::Unixpath</code></p>
-
-<p>Path to watched directory</p>
-
-<h5 id="label-mode"><code>mode</code></h5>
-
-<p>Data type: <code>Pattern[/^0[46][046]{2}$/]</code></p>
-
-<p>Incron job file permissions, which is located at
-<code>/etc/incron.d/${name}</code></p>
-
-<p>Default value: &#39;0644&#39;</p>
-
-<h3 id="label-incron-3A-3Awhitelist">incron::whitelist</h3>
-
-<p>Use this to whitelist any system incron jobs you don&#39;t want to touch.
-This will make sure that <code>/etc/incron.d/${title}</code> won&#39;t get
-deleted nor modified.</p>
-
-<h4 id="label-Examples">Examples</h4>
-
-<h5 id="label-Using+incron-3A-3Awhitelist+resource">Using incron::whitelist resource</h5>
-
-<pre class="code ruby"><code class="ruby">incron::whitelist { &#39;uploader&#39;: }</code></pre>
+<p>Check out <a href="REFERENCE.md">REFERENCE</a> for up-to-date details.</p>
 
 <h2 id="label-Limitations">Limitations</h2>
-
-<p>This module has only been used and tested on the following Ubuntu versions:</p>
+<ul><li>
+<p>Made for and tested only on the following Ubuntu distributions:</p>
 <ul><li>
 <p>14.04</p>
 </li><li>
 <p>16.04</p>
 </li><li>
-<p>18.04 (currently tested in Docker containers)</p>
+<p>18.04</p>
+</li></ul>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>
