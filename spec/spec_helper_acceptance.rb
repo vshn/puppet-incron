@@ -2,10 +2,9 @@
 
 require 'beaker-puppet'
 require 'beaker-rspec'
-require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
-run_puppet_install_helper
+install_puppet_from_gem_on(hosts, version: ENV.fetch('PUPPET', '~> 5.0'))
 install_module_dependencies
 install_module
 
