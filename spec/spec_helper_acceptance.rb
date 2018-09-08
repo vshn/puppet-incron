@@ -2,18 +2,16 @@
 
 require 'beaker-puppet'
 require 'beaker-rspec'
+require 'beaker/puppet_install_helper'
+require 'beaker/module_install_helper'
 
-install_puppet_from_gem_on(hosts, version: ENV.fetch('PUPPET', '~> 5.0'))
+run_puppet_install_helper
+install_module_dependencies
+install_module
 
 RSpec.configure do |c|
   c.color     = true
   c.formatter = :documentation
-  c.before :suite do
-    hosts.each do |host|
-      copy_root_module_to(host, module_name: 'incron', target_module_path: '/etc/puppetlabs/code/modules')
-      on host, puppet('module', 'install', 'puppetlabs-stdlib')
-    end
-  end
 end
 
 # This runs the supplied manifest twice on the host.

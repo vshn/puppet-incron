@@ -10,7 +10,9 @@ end
 
 group :acceptance do
   gem 'beaker-docker'
+  gem 'beaker-module_install_helper'
   gem 'beaker-puppet'
+  gem 'beaker-puppet_install_helper'
   gem 'beaker-rspec'
 end
 
