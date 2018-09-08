@@ -5,8 +5,8 @@ require 'beaker-rspec'
 require 'beaker/module_install_helper'
 
 install_puppet_from_gem_on(hosts, version: ENV.fetch('PUPPET', '~> 5.0'))
-install_module_dependencies
-install_module
+install_module_dependencies_on(hosts)
+install_module_on(hosts)
 
 RSpec.configure do |c|
   c.color     = true
