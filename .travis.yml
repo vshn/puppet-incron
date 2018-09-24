@@ -1,7 +1,6 @@
 ---
 sudo: required
-services:
-  - docker
+services: [ docker ]
 
 before_install: rm Gemfile.lock || true
 cache: bundler
@@ -19,6 +18,9 @@ jobs:
     - env:
         - DO=validate_all
         - PUPPET='~> 5'
+    - env:
+        - DO=validate_all
+        - PUPPET='~> 6'
     - stage: unit
       env:
         - DO=spec
@@ -26,6 +28,9 @@ jobs:
     - env:
         - DO=spec
         - PUPPET='~> 5'
+    - env:
+        - DO=spec
+        - PUPPET='~> 6'
     - stage: acceptance
       env:
         - DO=beaker
@@ -37,5 +42,13 @@ jobs:
         - BEAKER_PUPPET_COLLECTION=puppet5
     - env:
         - DO=beaker
+        - BEAKER_set=ubuntu_1604
+        - BEAKER_PUPPET_COLLECTION=puppet6
+    - env:
+        - DO=beaker
         - BEAKER_set=ubuntu_1804
         - BEAKER_PUPPET_COLLECTION=puppet5
+    - env:
+        - DO=beaker
+        - BEAKER_set=ubuntu_1804
+        - BEAKER_PUPPET_COLLECTION=puppet6

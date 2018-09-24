@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Puppet 6 support (no production code changes).
+
 ### Changed
-- Updated acceptance testing code to use new helpers.
+- Validation, Unit, and Acceptance stages now all include Puppet 6.
+- Run acceptance tests using new puppet and module install helpers.
 
 ## [0.4.0] - 2018-08-17
 ### Added
