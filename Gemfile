@@ -12,6 +12,7 @@ group :acceptance do
   gem 'beaker-docker'
   gem 'beaker-module_install_helper'
   gem 'beaker-puppet'
+  gem 'beaker-puppet_install_helper'
   gem 'beaker-rspec'
 end
 
@@ -21,7 +22,7 @@ group :documentation do
 end
 
 group :unit do
-  gem 'puppet', ENV.fetch('PUPPET', '~> 5')
+  gem 'puppet', ENV.fetch('PUPPET', '>= 4.4')
   gem 'puppetlabs_spec_helper'
   gem 'rspec-puppet-facts'
 end

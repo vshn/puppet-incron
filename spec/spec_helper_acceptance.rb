@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-require 'beaker-puppet'
 require 'beaker-rspec'
+require 'beaker-puppet'
+require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
-install_puppet_from_gem_on(hosts, version: ENV.fetch('PUPPET', '~> 5.0'))
+run_puppet_install_helper
 install_module_on(hosts)
 install_module_dependencies_on(hosts)
 
