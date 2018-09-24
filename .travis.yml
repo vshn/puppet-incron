@@ -1,14 +1,10 @@
 ---
 sudo: required
 services:
-- docker
+  - docker
 
 before_install: rm Gemfile.lock || true
-cache:
-  bundler: true
-  directories:
-  - spec/fixtures/artifacts
-  - spec/fixtures/modules
+cache: bundler
 
 language: ruby
 
@@ -18,28 +14,28 @@ jobs:
   include:
     - stage: validate
       env:
-      - DO=validate_all
-      - PUPPET='~> 4'
+        - DO=validate_all
+        - PUPPET='~> 4'
     - env:
-      - DO=validate_all
-      - PUPPET='~> 5'
+        - DO=validate_all
+        - PUPPET='~> 5'
     - stage: unit
       env:
-      - DO=spec
-      - PUPPET='~> 4'
+        - DO=spec
+        - PUPPET='~> 4'
     - env:
-      - DO=spec
-      - PUPPET='~> 5'
+        - DO=spec
+        - PUPPET='~> 5'
     - stage: acceptance
       env:
-      - DO=beaker
-      - PUPPET='~> 4'
-      - BEAKER_set=ubuntu_1404
+        - DO=beaker
+        - BEAKER_set=ubuntu_1404
+        - BEAKER_PUPPET_COLLECTION=puppet5
     - env:
-      - DO=beaker
-      - PUPPET='~> 5'
-      - BEAKER_set=ubuntu_1604
+        - DO=beaker
+        - BEAKER_set=ubuntu_1604
+        - BEAKER_PUPPET_COLLECTION=puppet5
     - env:
-      - DO=beaker
-      - PUPPET='~> 5'
-      - BEAKER_set=ubuntu_1804
+        - DO=beaker
+        - BEAKER_set=ubuntu_1804
+        - BEAKER_PUPPET_COLLECTION=puppet5
