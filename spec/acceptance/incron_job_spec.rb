@@ -66,7 +66,12 @@ describe 'incron::job' do
 
     apply_and_test_idempotence pp
 
-    cleaned_up_files = ['/usr/bin/test_notify', '/watched_directory', '/tmp/notify', '/etc/incron.d/notify_me_please']
+    cleaned_up_files = [
+      '/usr/bin/test_notify',
+      '/watched_directory',
+      '/tmp/notify',
+      '/etc/incron.d/notify_me_please',
+    ]
 
     cleaned_up_files.each do |cleaned_up_file|
       describe file(cleaned_up_file) do

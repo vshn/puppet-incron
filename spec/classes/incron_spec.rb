@@ -35,7 +35,7 @@ describe 'incron' do
         is_expected.to contain_file('/etc/incron.allow').only_with(
           ensure:  :file,
           force:   true,
-          content: '',
+          content: "root\n",
           owner:   'root',
           group:   'root',
           mode:    '0644',
@@ -77,6 +77,18 @@ describe 'incron' do
           mode:    '0755',
         )
       }
+
+      it {
+        is_expected.to contain_file('/var/spool/incron').only_with(
+          ensure:  :directory,
+          recurse: true,
+          purge:   true,
+          force:   true,
+          owner:   'root',
+          group:   'incron',
+          mode:    '1731',
+        )
+      }
     end
   end
 
@@ -85,6 +97,7 @@ describe 'incron' do
 
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/incron.d').with_noop(true) }
+    it { is_expected.to contain_file('/var/spool/incron').with_noop(true) }
   end
 
   context 'with custom allowed_users' do
@@ -94,7 +107,7 @@ describe 'incron' do
     it {
       is_expected.to contain_file('/etc/incron.allow')
         .with_ensure(:file)
-        .with_content("nice_guy\nnice_girl\n")
+        .with_content("root\nnice_guy\nnice_girl\n")
     }
     it { is_expected.to contain_file('/etc/incron.deny').with_ensure(:absent) }
   end
@@ -164,15 +177,16 @@ describe 'incron' do
     context 'incron::remove' do
       it { is_expected.to contain_package('incron').only_with_ensure(:purged) }
 
-      removed_files = ['/etc/incron.d', '/etc/incron.conf', '/etc/incron.allow', '/etc/incron.deny']
+      removed_files = [
+        '/etc/incron.d',
+        '/etc/incron.conf',
+        '/etc/incron.allow',
+        '/etc/incron.deny',
+        '/var/spool/incron',
+      ]
 
       removed_files.each do |removed_file|
-        it {
-          is_expected.to contain_file(removed_file).only_with(
-            ensure: :absent,
-            force:  true,
-          )
-        }
+        it { is_expected.to contain_file(removed_file).only_with(ensure: :absent, force: true) }
       end
 
       on_supported_os.each do |os_ver, facts|

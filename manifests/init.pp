@@ -11,7 +11,7 @@
 #
 # @param ensure Whether to enable or disable incron on the system.
 # @param package_version Provide custom `incron` package version here.
-# @param allowed_users List of users allowed to use `incrontab(1)`. By default, only root can.
+# @param allowed_users List of users allowed to use `incrontab(1)`. `root` will be added automatically.
 # @param denied_users List of users specifically denied to use `incrontab(1)`.
 #   Note: When this is not empty, all users except ones specified here will be able to use `incrontab`.
 # @param service_manage Whether to manage incron service at all.

@@ -13,7 +13,7 @@ _Private Classes_
 
 * `incron::config`: This class handles incron configuration files.
 * `incron::install`: This class handles incron package.
-* `incron::purge`: Purge `/etc/incron.d` directory.
+* `incron::purge`: Purge `/etc/incron.d` and `/var/spool/incron` directories.
 * `incron::remove`: This class handles removal of all incron-related resources.
 * `incron::service`: This class handles incron service.
 
@@ -69,7 +69,7 @@ Default value: installed
 
 Data type: `Array[String[1]]`
 
-List of users allowed to use `incrontab(1)`. By default, only root can.
+List of users allowed to use `incrontab(1)`. `root` will be added automatically.
 
 Default value: [ ]
 
@@ -138,7 +138,7 @@ The following parameters are available in the `incron::job` defined type.
 
 ##### `command`
 
-Data type: `String`
+Data type: `String[1]`
 
 Command to execute on triggered event
 
@@ -155,13 +155,13 @@ Data type: `Stdlib::Unixpath`
 
 Path to watched directory
 
-##### `mode`
+##### `user`
 
-Data type: `Pattern[/^0[46][046]{2}$/]`
+Data type: `String[1]`
 
-Incron job file permissions, which is located at `/etc/incron.d/${name}`
+User that owns incron job
 
-Default value: '0644'
+Default value: 'root'
 
 ### incron::whitelist
 

@@ -6,11 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- GH-4: Ability to specify user name for `incron::job` resource.
+- New dependency: `puppetlabs/concat`.
 - Puppet 6 support (no production code changes).
 
 ### Changed
+- GH-4: `incron::job` now manages jobs through `/var/spool/incron/${user}` instead of `/etc/incron.d/${title}`.
 - Validation, Unit, and Acceptance stages now all include Puppet 6.
 - Run acceptance tests using new puppet and module install helpers.
+
+### Removed
+- GH-4: `$mode` parameter for `incron::job` has now been dropped since it is no longer applicable.
 
 ## [0.4.0] - 2018-08-17
 ### Added

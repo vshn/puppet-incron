@@ -17,16 +17,24 @@ describe 'incron::job' do
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_class('incron') }
 
+    it { is_expected.not_to contain_file('/etc/incron.d/process_file') }
+
     it {
-      is_expected.to contain_file('/etc/incron.d/process_file')
-        .only_with(
-          ensure:  :file,
-          owner:   'root',
-          group:   'root',
-          mode:    '0644',
+      is_expected.to contain_concat('/var/spool/incron/root')
+        .with(
+          ensure: :present,
+          mode:   '0600',
+          owner:  'root',
+          group:  'incron',
+        )
+    }
+
+    it {
+      is_expected.to contain_concat__fragment('incron_process_file')
+        .with(
+          target:  '/var/spool/incron/root',
           content: "/upload IN_MOVED_TO /usr/bin/process_file\n",
         )
-        .without_content(/^#/) # Causes incron to spew tons of warnings in logs
     }
   end
 
@@ -40,9 +48,8 @@ describe 'incron::job' do
     end
 
     it {
-      is_expected.to contain_file('/etc/incron.d/process_file')
+      is_expected.to contain_concat__fragment('incron_process_file')
         .with_content(%r{/upload IN_MOVED_TO,IN_CLOSE_WRITE /usr/bin/process_file})
-        .without_content(/^#/)
     }
   end
 end
