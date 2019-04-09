@@ -7,10 +7,17 @@
 #     command => '/usr/bin/process_file $#',
 #   }
 #
-# @param command Command to execute on triggered event
-# @param event inotify event (or an array of events)
-# @param path Path to watched directory
-# @param user User that owns incron job
+# @param command
+#   Command to execute on triggered event.
+#
+# @param event
+#   inotify event (or an array of events).
+#
+# @param path
+#   Path to watched directory.
+#
+# @param user
+#   User that owns incron job.
 define incron::job (
   String[1]                  $command,
   Variant[Incron::Event,
