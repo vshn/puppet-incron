@@ -20,6 +20,7 @@ class incron::remove {
       '/etc/incron.conf',
       '/etc/incron.allow',
       '/etc/incron.deny',
+      '/var/spool/incron',
     ]:
       ensure => absent,
       force  => true,

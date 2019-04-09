@@ -10,27 +10,29 @@
 # @param command Command to execute on triggered event
 # @param event inotify event (or an array of events)
 # @param path Path to watched directory
-# @param mode Incron job file permissions, which is located at `/etc/incron.d/${name}`
+# @param user User that owns incron job
 define incron::job (
-  String                     $command,
+  String[1]                  $command,
   Variant[Incron::Event,
     Array[Incron::Event, 2]] $event,
   Stdlib::Unixpath           $path,
-  Pattern[/^0[46][046]{2}$/] $mode = '0644',
+  String[1]                  $user = 'root',
 ) {
 
   include ::incron
 
-  file { "/etc/incron.d/${name}":
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $mode,
-    content => epp("${module_name}/job.epp", {
-      command => $command,
-      event   => $event,
-      path    => $path,
-    }),
+  if !defined(Concat["/var/spool/incron/${user}"]) {
+    concat { "/var/spool/incron/${user}":
+      ensure => present,
+      mode   => '0600',
+      owner  => $user,
+      group  => 'incron',
+    }
+  }
+
+  concat::fragment { "incron_${title}":
+    target  => "/var/spool/incron/${user}",
+    content => "${path} ${join(any2array($event), ',')} ${command}\n",
   }
 
 }

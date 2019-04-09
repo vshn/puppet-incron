@@ -18,7 +18,7 @@ class incron::config {
       content => '';
     '/etc/incron.allow':
       ensure  => if empty($::incron::denied_users) { file } else { absent },
-      content => join(suffix($::incron::allowed_users, "\n"));
+      content => join(suffix([ 'root' ] + $::incron::allowed_users, "\n"));
     '/etc/incron.deny':
       ensure  => unless empty($::incron::denied_users) { file } else { absent },
       content => join(suffix($::incron::denied_users, "\n"));
