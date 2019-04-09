@@ -1,4 +1,4 @@
-#  Main entry point for incron class which must be included
+# Main entry point for incron class which must be included
 # in order to start managing all incron-related resources.
 #
 # @example Installing incron

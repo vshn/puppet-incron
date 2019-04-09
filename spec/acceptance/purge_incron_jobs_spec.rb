@@ -26,8 +26,8 @@ describe 'incron::purge' do
 
     describe file('/var/spool/incron/root') do
       it { is_expected.to exist }
-      its(:content) { is_expected.to match %r{/bin/echo one$}}
-      its(:content) { is_expected.to match %r{/bin/echo two$}}
+      its(:content) { is_expected.to match %r{/bin/echo one$} }
+      its(:content) { is_expected.to match %r{/bin/echo two$} }
     end
   end
 
@@ -48,8 +48,8 @@ describe 'incron::purge' do
 
     describe file('/var/spool/incron/root') do
       it { is_expected.to exist }
-      its(:content) { is_expected.to match %r{/bin/echo one$}}
-      its(:content) { is_expected.not_to match %r{/bin/echo two$}}
+      its(:content) { is_expected.to match %r{/bin/echo one$} }
+      its(:content) { is_expected.not_to match %r{/bin/echo two$} }
     end
   end
 end
