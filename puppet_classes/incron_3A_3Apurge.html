@@ -6,7 +6,7 @@
 <title>
   Puppet Class: incron::purge
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -75,7 +75,8 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Purge <code>/etc/incron.d</code> directory.</p>
+<p>Purge <code>/etc/incron.d</code> and <code>/var/spool/incron</code>
+directories.</p>
 
   </div>
 </div>
@@ -104,7 +105,18 @@
 14
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/purge.pp', line 4</span>
@@ -116,6 +128,17 @@ class incron::purge {
     owner   =&gt; &#39;root&#39;,
     group   =&gt; &#39;root&#39;,
     mode    =&gt; &#39;0755&#39;,
+    recurse =&gt; true,
+    purge   =&gt; true,
+    force   =&gt; true,
+    noop    =&gt; if $::incron::purge_noop { true } else { undef },
+  }
+
+  file { &#39;/var/spool/incron&#39;:
+    ensure  =&gt; directory,
+    owner   =&gt; &#39;root&#39;,
+    group   =&gt; &#39;incron&#39;,
+    mode    =&gt; &#39;1731&#39;,
     recurse =&gt; true,
     purge   =&gt; true,
     force   =&gt; true,

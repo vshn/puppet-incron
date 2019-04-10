@@ -6,7 +6,7 @@
 <title>
   Puppet Class: incron::config
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -136,7 +136,7 @@ class incron::config {
       content =&gt; &#39;&#39;;
     &#39;/etc/incron.allow&#39;:
       ensure  =&gt; if empty($::incron::denied_users) { file } else { absent },
-      content =&gt; join(suffix($::incron::allowed_users, &quot;\n&quot;));
+      content =&gt; join(suffix([ &#39;root&#39; ] + $::incron::allowed_users, &quot;\n&quot;));
     &#39;/etc/incron.deny&#39;:
       ensure  =&gt; unless empty($::incron::denied_users) { file } else { absent },
       content =&gt; join(suffix($::incron::denied_users, &quot;\n&quot;));

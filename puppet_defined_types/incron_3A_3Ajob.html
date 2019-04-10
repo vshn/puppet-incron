@@ -6,7 +6,7 @@
 <title>
   Defined Type: incron::job
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -104,7 +104,7 @@
         <span class='name'>command</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>String[1]</tt>)</span>
       
       
       
@@ -150,19 +150,18 @@
   
     <li>
       
-        <span class='name'>mode</span>
+        <span class='name'>user</span>
       
       
-        <span class='type'>(<tt>Pattern[/^0[46][046]{2}$/]</tt>)</span>
+        <span class='type'>(<tt>String[1]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;0644&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Incron job file permissions, which is located at
-<code>/etc/incron.d/${name}</code></p>
+<p>User that owns incron job</p>
 </div>
       
     </li>
@@ -199,31 +198,35 @@
 33
 34
 35
-36</pre>
+36
+37
+38</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/job.pp', line 14</span>
 
 define incron::job (
-  String                     $command,
+  String[1]                  $command,
   Variant[Incron::Event,
     Array[Incron::Event, 2]] $event,
   Stdlib::Unixpath           $path,
-  Pattern[/^0[46][046]{2}$/] $mode = &#39;0644&#39;,
+  String[1]                  $user = &#39;root&#39;,
 ) {
 
   include ::incron
 
-  file { &quot;/etc/incron.d/${name}&quot;:
-    ensure  =&gt; file,
-    owner   =&gt; &#39;root&#39;,
-    group   =&gt; &#39;root&#39;,
-    mode    =&gt; $mode,
-    content =&gt; epp(&quot;${module_name}/job.epp&quot;, {
-      command =&gt; $command,
-      event   =&gt; $event,
-      path    =&gt; $path,
-    }),
+  if !defined(Concat[&quot;/var/spool/incron/${user}&quot;]) {
+    concat { &quot;/var/spool/incron/${user}&quot;:
+      ensure =&gt; present,
+      mode   =&gt; &#39;0600&#39;,
+      owner  =&gt; $user,
+      group  =&gt; &#39;incron&#39;,
+    }
+  }
+
+  concat::fragment { &quot;incron_${title}&quot;:
+    target  =&gt; &quot;/var/spool/incron/${user}&quot;,
+    content =&gt; &quot;${path} ${join(any2array($event), &#39;,&#39;)} ${command}\n&quot;,
   }
 
 }</pre>
