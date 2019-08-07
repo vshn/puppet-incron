@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.6.0] - 2019-08-08
 ### Changed
 - [GH-6](https://github.com/pegasd/puppet-incron/issues/6): Update `stdlib` version requirements in `metadata.json`.
 - Update `REFERENCE.md` with data type since Puppet strings started supporting these.
