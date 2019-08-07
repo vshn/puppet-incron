@@ -140,26 +140,26 @@ The following parameters are available in the `incron::job` defined type.
 
 Data type: `String[1]`
 
-Command to execute on triggered event
+Command to execute on triggered event.
 
 ##### `event`
 
 Data type: `Variant[Incron::Event,
     Array[Incron::Event, 2]]`
 
-inotify event (or an array of events)
+inotify event (or an array of events).
 
 ##### `path`
 
 Data type: `Stdlib::Unixpath`
 
-Path to watched directory
+Path to watched directory.
 
 ##### `user`
 
 Data type: `String[1]`
 
-User that owns incron job
+User that owns incron job.
 
 Default value: 'root'
 

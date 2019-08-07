@@ -9,15 +9,30 @@
 #     ensure => absent,
 #   }
 #
-# @param ensure Whether to enable or disable incron on the system.
-# @param package_version Provide custom `incron` package version here.
-# @param allowed_users List of users allowed to use `incrontab(1)`. `root` will be added automatically.
-# @param denied_users List of users specifically denied to use `incrontab(1)`.
+# @param ensure
+#   Whether to enable or disable incron on the system.
+#
+# @param package_version
+#   Provide custom `incron` package version here.
+#
+# @param allowed_users
+#   List of users allowed to use `incrontab(1)`. `root` will be added automatically.
+#
+# @param denied_users
+#   List of users specifically denied to use `incrontab(1)`.
 #   Note: When this is not empty, all users except ones specified here will be able to use `incrontab`.
-# @param service_manage Whether to manage incron service at all.
-# @param service_ensure Incron service's 'ensure' parameter.
-# @param service_enable Incron service's 'enable' parameter.
-# @param purge_noop Run purging in `noop` mode.
+#
+# @param service_manage
+#   Whether to manage incron service at all.
+#
+# @param service_ensure
+#   Incron service's 'ensure' parameter.
+#
+# @param service_enable
+#   Incron service's 'enable' parameter.
+#
+# @param purge_noop
+#   Run purging in `noop` mode.
 class incron (
   Enum[present, absent]  $ensure          = present,
 
