@@ -22,6 +22,10 @@ _Private Classes_
 * [`incron::job`](#incronjob): Primary incron resource used to create incron jobs.
 * [`incron::whitelist`](#incronwhitelist): Use this to whitelist any system incron jobs you don't want to touch. This will make sure that `/etc/incron.d/${title}` won't get deleted nor
 
+**Data types**
+
+* [`Incron::Event`](#incronevent): inotify event type
+
 ## Classes
 
 ### incron
@@ -176,4 +180,12 @@ nor modified.
 ```puppet
 incron::whitelist { 'uploader': }
 ```
+
+## Data types
+
+### Incron::Event
+
+inotify event type
+
+Alias of `Enum['IN_ALL_EVENTS', 'IN_ACCESS', 'IN_ATTRIB', 'IN_CLOSE_WRITE', 'IN_CLOSE_NOWRITE', 'IN_CREATE', 'IN_DELETE', 'IN_DELETE_SELF', 'IN_MODIFY', 'IN_MOVE_SELF', 'IN_MOVED_FROM', 'IN_MOVED_TO', 'IN_OPEN', 'IN_DONT_FOLLOW', 'IN_ONESHOT', 'IN_ONLYDIR', 'IN_NO_LOOP']`
 
