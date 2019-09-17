@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- [GH-11](https://github.com/pegasd/puppet-incron/issues/11): Add `RedHat` and `CentOS` support.
 
 ## [0.6.0] - 2019-08-08
 ### Changed
