@@ -3,7 +3,7 @@
 # @api private
 class incron::remove {
 
-  if versioncmp($facts['os']['release']['full'], '15.04') >= 0 {
+  if $facts['service_provider'] == 'systemd' {
     service { 'incron':
       ensure   => stopped,
       provider => systemd,

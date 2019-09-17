@@ -163,7 +163,6 @@ describe 'incron' do
   end
 
   context 'with ensure => absent' do
-    let(:facts) { { os: { release: { full: '14.04' } } } }
     let(:params) { { ensure: 'absent' } }
 
     it { is_expected.to compile.with_all_deps }
@@ -189,17 +188,7 @@ describe 'incron' do
         it { is_expected.to contain_file(removed_file).only_with(ensure: :absent, force: true) }
       end
 
-      on_supported_os.each do |os_ver, facts|
-        context "on Ubuntu #{os_ver}" do
-          let(:facts) { facts }
-
-          if facts[:os]['release']['full'] == '14.04'
-            it { is_expected.not_to contain_service('incron') }
-          else
-            it { is_expected.to contain_service('incron').with_ensure(:stopped).with_provider(:systemd) }
-          end
-        end
-      end
+      it { is_expected.to contain_service('incron').with_ensure(:stopped).with_provider(:systemd) }
     end
   end
 end

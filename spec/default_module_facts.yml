@@ -1,2 +1,4 @@
 ---
-osfamily: Debian
+osfamily: Debian # Fix for running specs under macOS
+service_provider: systemd
+...
