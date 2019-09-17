@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Lower requirement for Puppet version is now bumped up to `4.10.0` as this is the lowest working version for Hiera 5.
 - Change testing matrix to only do acceptance testing on latest Puppet versions.
+- Stop managing `group` parameter for `/var/spool/incron` directory and all files that reside there.
 
 ## [0.6.0] - 2019-08-08
 ### Changed
