@@ -50,6 +50,9 @@ jobs:
     - env:
         - DO=beaker
         - BEAKER_set=centos_7
+    - env:
+        - DO=beaker
+        - BEAKER_set=fedora_30
     - stage: deploy
       script: true
       env:

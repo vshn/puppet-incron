@@ -2,6 +2,13 @@
 
 require 'spec_helper_acceptance'
 
+case os[:family]
+when 'redhat', 'fedora'
+  servicename = 'incrond'
+else
+  servicename = 'incron'
+end
+
 describe 'incron' do
   context 'installs?' do
     pp = <<~PUPPET
@@ -16,7 +23,7 @@ describe 'incron' do
     describe package('incron') do
       it { is_expected.to be_installed }
     end
-    describe service('incron') do
+    describe service(servicename) do
       it { is_expected.to be_running }
     end
     describe file('/etc/incron.d') do
@@ -37,7 +44,7 @@ describe 'incron' do
     describe package('incron') do
       it { is_expected.not_to be_installed }
     end
-    describe service('incron') do
+    describe service(servicename) do
       it { is_expected.not_to be_running }
     end
 

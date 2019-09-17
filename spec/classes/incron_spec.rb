@@ -96,7 +96,6 @@ describe 'incron' do
           purge:   true,
           force:   true,
           owner:   'root',
-          group:   'incron',
           mode:    '1731',
         )
       }

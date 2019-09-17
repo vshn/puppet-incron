@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- [GH-11](https://github.com/pegasd/puppet-incron/issues/11): Add `Debian`, `RedHat`, and `CentOS` support:
+- [GH-11](https://github.com/pegasd/puppet-incron/issues/11): Add `Debian`, `RedHat`, `Fedora`, and `CentOS` support:
     - Add data in modules so that incron service name is different under various distributions
-    - Add acceptance testing for `Debian 8` and `CentOS 7`
+    - Add acceptance testing for `Debian 8`, `CentOS 7`, and `Fedora 30`
 
 ### Changed
 - Lower requirement for Puppet version is now bumped up to `4.10.0` as this is the lowest working version for Hiera 5.

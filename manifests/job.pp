@@ -33,7 +33,6 @@ define incron::job (
       ensure => present,
       mode   => '0600',
       owner  => $user,
-      group  => 'incron',
     }
   }
 

@@ -5,7 +5,6 @@ HOSTS:
     image: centos:7
     docker_preserve_image: true
     docker_cmd: '["/usr/sbin/init"]'
-    # install various tools required to get the image up to usable levels
     docker_image_commands:
       - 'yum install -y wget epel-release'
 CONFIG:
