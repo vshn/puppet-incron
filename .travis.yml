@@ -8,6 +8,8 @@ cache: bundler
 language: ruby
 
 script: bundle exec rake $DO
+env:
+  - BEAKER_PUPPET_COLLECTION=puppet6
 
 jobs:
   include:
@@ -35,31 +37,18 @@ jobs:
       env:
         - DO=beaker
         - BEAKER_set=ubuntu_1404
-        - BEAKER_PUPPET_COLLECTION=puppet5
     - env:
         - DO=beaker
         - BEAKER_set=ubuntu_1604
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1604
-        - BEAKER_PUPPET_COLLECTION=puppet6
     - env:
         - DO=beaker
         - BEAKER_set=ubuntu_1804
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1804
-        - BEAKER_PUPPET_COLLECTION=puppet6
     - env:
         - DO=beaker
         - BEAKER_set=debian_8
-        - BEAKER_PUPPET_COLLECTION=puppet6
     - env:
         - DO=beaker
         - BEAKER_set=centos_7
-        - BEAKER_PUPPET_COLLECTION=puppet6
     - stage: deploy
       script: true
       env:
