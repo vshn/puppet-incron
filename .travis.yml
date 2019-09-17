@@ -52,6 +52,14 @@ jobs:
         - DO=beaker
         - BEAKER_set=ubuntu_1804
         - BEAKER_PUPPET_COLLECTION=puppet6
+    - env:
+        - DO=beaker
+        - BEAKER_set=debian_8
+        - BEAKER_PUPPET_COLLECTION=puppet6
+    - env:
+        - DO=beaker
+        - BEAKER_set=centos_7
+        - BEAKER_PUPPET_COLLECTION=puppet6
     - stage: deploy
       script: true
       env:
