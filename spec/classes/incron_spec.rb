@@ -54,15 +54,26 @@ describe 'incron' do
     end
 
     describe 'incron::service' do
-      it { is_expected.to compile.with_all_deps }
-      it {
-        is_expected.to contain_service('incron').only_with(
-          ensure:     :running,
-          enable:     true,
-          hasrestart: true,
-          hasstatus:  true,
-        )
-      }
+      on_supported_os.each do |os_name, facts|
+        context "on #{os_name}" do
+          let(:facts) { facts }
+
+          it { is_expected.to compile.with_all_deps }
+
+          facts[:os]['family'] == 'RedHat' ? service_name = 'incrond' : service_name = 'incron'
+
+          it {
+            is_expected.to contain_service('incron')
+              .only_with(
+                name:       service_name,
+                ensure:     :running,
+                enable:     true,
+                hasrestart: true,
+                hasstatus:  true,
+              )
+          }
+        end
+      end
     end
 
     describe 'incron::purge' do
