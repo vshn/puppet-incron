@@ -3,8 +3,8 @@
 source 'https://rubygems.org'
 
 group :ed25519 do
-  gem 'ed25519'
   gem 'bcrypt_pbkdf', '< 2.0'
+  gem 'ed25519'
   gem 'rbnacl', '< 5.0'
   gem 'rbnacl-libsodium'
 end

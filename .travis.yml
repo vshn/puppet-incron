@@ -9,7 +9,8 @@ language: ruby
 
 script: bundle exec rake $DO
 env:
-  - BEAKER_PUPPET_COLLECTION=puppet6
+  global:
+    - BEAKER_PUPPET_COLLECTION=puppet6
 
 jobs:
   include:
