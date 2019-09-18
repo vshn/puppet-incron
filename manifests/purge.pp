@@ -17,7 +17,6 @@ class incron::purge {
   file { '/var/spool/incron':
     ensure  => directory,
     owner   => 'root',
-    group   => 'incron',
     mode    => '1731',
     recurse => true,
     purge   => true,

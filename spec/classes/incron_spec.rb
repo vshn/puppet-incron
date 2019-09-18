@@ -54,15 +54,26 @@ describe 'incron' do
     end
 
     describe 'incron::service' do
-      it { is_expected.to compile.with_all_deps }
-      it {
-        is_expected.to contain_service('incron').only_with(
-          ensure:     :running,
-          enable:     true,
-          hasrestart: true,
-          hasstatus:  true,
-        )
-      }
+      on_supported_os.each do |os_name, facts|
+        context "on #{os_name}" do
+          let(:facts) { facts }
+
+          it { is_expected.to compile.with_all_deps }
+
+          facts[:os]['family'] == 'RedHat' ? service_name = 'incrond' : service_name = 'incron'
+
+          it {
+            is_expected.to contain_service('incron')
+              .only_with(
+                name:       service_name,
+                ensure:     :running,
+                enable:     true,
+                hasrestart: true,
+                hasstatus:  true,
+              )
+          }
+        end
+      end
     end
 
     describe 'incron::purge' do
@@ -85,7 +96,6 @@ describe 'incron' do
           purge:   true,
           force:   true,
           owner:   'root',
-          group:   'incron',
           mode:    '1731',
         )
       }
@@ -163,7 +173,6 @@ describe 'incron' do
   end
 
   context 'with ensure => absent' do
-    let(:facts) { { os: { release: { full: '14.04' } } } }
     let(:params) { { ensure: 'absent' } }
 
     it { is_expected.to compile.with_all_deps }
@@ -189,17 +198,7 @@ describe 'incron' do
         it { is_expected.to contain_file(removed_file).only_with(ensure: :absent, force: true) }
       end
 
-      on_supported_os.each do |os_ver, facts|
-        context "on Ubuntu #{os_ver}" do
-          let(:facts) { facts }
-
-          if facts[:os]['release']['full'] == '14.04'
-            it { is_expected.not_to contain_service('incron') }
-          else
-            it { is_expected.to contain_service('incron').with_ensure(:stopped).with_provider(:systemd) }
-          end
-        end
-      end
+      it { is_expected.to contain_service('incron').with_ensure(:stopped).with_provider(:systemd) }
     end
   end
 end

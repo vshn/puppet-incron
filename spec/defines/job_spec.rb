@@ -25,7 +25,6 @@ describe 'incron::job' do
           ensure: :present,
           mode:   '0600',
           owner:  'root',
-          group:  'incron',
         )
     }
 

@@ -86,6 +86,14 @@ Note: When this is not empty, all users except ones specified here will be able 
 
 Default value: [ ]
 
+##### `service_name`
+
+Data type: `String[1]`
+
+Incron service's name.
+
+Default value: 'incrond'
+
 ##### `service_manage`
 
 Data type: `Boolean`

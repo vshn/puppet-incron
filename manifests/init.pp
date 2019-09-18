@@ -22,6 +22,9 @@
 #   List of users specifically denied to use `incrontab(1)`.
 #   Note: When this is not empty, all users except ones specified here will be able to use `incrontab`.
 #
+# @param service_name
+#   Incron service's name.
+#
 # @param service_manage
 #   Whether to manage incron service at all.
 #
@@ -44,6 +47,7 @@ class incron (
   Array[String[1]]       $denied_users    = [ ],
 
   # incron::service
+  String[1]              $service_name    = 'incrond',
   Boolean                $service_manage  = true,
   Enum[running, stopped] $service_ensure  = running,
   Boolean                $service_enable  = true,
