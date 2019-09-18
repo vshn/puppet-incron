@@ -9,11 +9,11 @@
 ## Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with incron](#setup)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+2. [Setup - The basics of getting started with incron](#setup)
+3. [Usage - Configuration options and additional functionality](#usage)
+4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Development - Guide for contributing to the module](#development)
 
 ## Description
 
@@ -62,10 +62,13 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 
 ## Limitations
 
-* Made for and tested only on the following Ubuntu distributions:
-    * 14.04
-    * 16.04
-    * 18.04
+- Acceptance suite is run on the following GNU/Linux distributions:
+    - Ubuntu 14.04
+    - Ubuntu 16.04
+    - Ubuntu 18.04
+    - Debian 8
+    - CentOS 7
+    - Fedora 30
 
 ## Development
 
