@@ -54,6 +54,8 @@ class incron (
 
   # incron::purge
   Boolean                $purge_noop      = false,
+  # incron create from hash
+  Hash                   $jobs            = {},
 ) {
 
   if $ensure == present {
@@ -66,11 +68,9 @@ class incron (
     Class['::incron::install'] -> Class['::incron::config'] -> Class['::incron::purge']
     Class['::incron::install'] ~> Class['::incron::service']
     Class['::incron::config'] ~> Class['::incron::service']
-
+  
+    create_resources('::incron::job', $jobs)
   } else {
-
     contain incron::remove
-
   }
-
 }

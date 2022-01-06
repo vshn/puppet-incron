@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.8.0] - 2021-01-06
+### Added
+- Better support for hiera configs, jobs can be passed directly to the resource type Job
+
 ## [0.7.0] - 2019-09-18
 ### Added
 - [GH-11](https://github.com/pegasd/puppet-incron/issues/11): Add `Debian`, `RedHat`, `Fedora`, and `CentOS` support:
